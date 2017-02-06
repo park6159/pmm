@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Summary</title>
+	<meta charset="utf-8" />	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+			
+    <!-- CSS -->	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="/css/jquery-ui.css">
+	<link rel="stylesheet" href="/css/summary-style.css" type="text/css">  
+	<link rel="stylesheet" href="/mediaelement/build/mediaelementplayer.css" />
+     
+    <!-- JS -->    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/jquery-ui.js"></script>	
+	<script src="/mediaelement/build/mediaelement-and-player.js"></script>
+	<script src="//d3js.org/d3.v3.min.js"></script>	
+</head>
+
+<body class="body">
+	<div class="mainContent">	
+		<div class="topcontent">
+			<div class="surveytitle">Personalization Benchmark Report For <?php echo($this->company);?></div>
+			<div class="q1title">Personalization Score</div>	
+			<table>
+				<tr>
+				<td valign="top"><div id="chart0">&nbsp;</div></td>
+				<td><div class="scontent">Your overall percentile score:</div>
+				<div class="sscore"><?php echo($this->overallScore);?></div><div class="sscoresm">%</div>
+				</td>
+				</tr>
+			</table>
+		</div>
+		<div class="midcontent">
+			<br>
+			<div class="qtitle">Recommendations</div>	
+			<table>
+				<tr>
+				<td valign="top"><div id="chart1"></div></td>
+				<td><div class="stitle">Number of Customer Interaction Systems</div>
+				<div class="scontent">
+				<?php echo($this->q1BenchmarkResult);?>
+				<?php echo($this->q1Recommendation);?>
+				</div>
+
+				</td>
+				</tr>
+				<tr>
+				<td valign="top"><div id="chart2"></div></td>
+				<td><div class="stitle">Single Consolidated View of Customers</div>
+				<div class="scontent">
+				<?php echo($this->q2BenchmarkResult);?>
+				<?php echo($this->q2Recommendation);?>
+				</div>
+				</td>
+				</tr>
+				<tr>
+				<td valign="top"><div id="chart3"></div></td>
+				<td><div class="stitle">Advanced Analytics</div>
+				<div class="scontent">
+				<?php echo($this->q3BenchmarkResult);?>
+				<?php echo($this->q3Recommendation);?>
+				</div>
+				</td>
+				</tr>
+				<tr>
+				<td valign="top"><div id="chart4"></div></td>
+				<td><div class="stitle">Real-Time Customer Response</div>
+				<div class="scontent">
+				<?php echo($this->q4BenchmarkResult);?>
+				<?php echo($this->q4Recommendation);?>
+				</div>						
+				</td>
+				</tr>																		
+			</table>	
+		</div>				
+		<div class="midcontent">
+			<br>
+			<div class="qtitle">Recommended Resources</div>	
+			<table>
+				<tr>
+				<td>
+					<div class="scontent">
+						<table>
+							<tr>
+								<td valign="top">
+<?php 
+$playedAlready=0; 
+$videoCount = 0;
+if ($this->q1MyPercent == 100) {
+
+$videoCount++;
+?>	
+<script type="text/javascript">
+$("document").ready(function() {
+	$('#video1_popup').dialog( { 
+		autoOpen: false,
+		width:420,
+		modal: true		
+	});
+
+	$('#video1_text').click(function(e) {
+	    $('#video1_popup').dialog('open');
+	});
+	
+}); 
+</script>
+<div id="video1_popup" class="infowindow">
+	<video width="660" height="480" id="video1-1" preload="none">
+		<source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3197254931&feature=iv&src_vid=xMShXVtDo0I&v=i-1kNXOaWVc" />
+	</video>
+</div>	
+<div id='video1_text' >						
+								<video width="220" height="160" id="video1" preload="none">
+							    <source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3197254931&feature=iv&src_vid=xMShXVtDo0I&v=i-1kNXOaWVc" />
+								</video>
+</div>							
+								<div class="vtitle">Watch this video on <b>Value for Your Information</b> by Brendan Witcher, Forrester Research Analyst.</div>
+<?php } else if ($this->q1MyPercent < 100) {
+    $videoCount++;
+    ?>
+<script type="text/javascript">
+$("document").ready(function() {
+	$('#video1_popup').dialog( { 
+		autoOpen: false,
+		width:420,
+		modal: true		
+	});
+	
+	$('#video1_text').click(function(e) {
+	    $('#video1_popup').dialog('open');
+	});
+	
+}); 
+</script>
+<div id="video1_popup" class="infowindow">
+	<video width="660" height="480" id="video1-1" preload="none">
+		<source type="video/youtube" src="https://www.youtube.com/watch?v=VMjk8bRBCH0&list=PLvh5r_t6exZsTYsl8xvp6w-5etfP_LCiz&index=10" />
+	</video>
+</div>
+<div id='video1_text' >
+								<video width="220" height="160" id="video1" preload="none">
+							    <source type="video/youtube" src="https://www.youtube.com/watch?v=VMjk8bRBCH0&list=PLvh5r_t6exZsTYsl8xvp6w-5etfP_LCiz&index=10" />
+								</video>
+</div>								
+								<div class="vtitle">Watch this video on <b>Developing Customer Trust and Value vs. Privacy</b>.</div>
+<?php } else { 
+    $playedAlready=1;
+        $videoCount++;
+        ?>
+<script type="text/javascript">
+$("document").ready(function() {
+	$('#video1_popup').dialog( { 
+		autoOpen: false,
+		width:674,
+		modal: true		
+	});
+	
+	$('#video1_text').click(function(e) {
+	    $('#video1_popup').dialog('open');
+	});
+	
+}); 
+
+
+
+</script>
+<div id="video1_popup">
+	<video width="660" height="480" id="video1-1" preload="none" autoplay="true">
+		<source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3710074665&feature=iv&src_vid=xMShXVtDo0I&v=4YCWZ1xJT7w" />
+	</video>
+</div>
+<div id='video1_text' >
+								<video width="220" height="160" id="video1" preload="none">
+							    <source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3710074665&feature=iv&src_vid=xMShXVtDo0I&v=4YCWZ1xJT7w" />
+								</video>
+</div>
+								<div class="vtitle">Watch this video on <b>The Contextual Marketing Imperative Research Paper</b> by Brendan Witcher, Forrester Research Analyst.</div>
+<?php }?>									
+								</td>	
+								<td valign="top" style="padding-left: 10px">
+<?php //if ($this->q2MyGroup == 0 || $this->q2MyGroup == 1) {  
+        if (1) {
+    $videoCount++;
+    ?>	
+<script type="text/javascript">
+$("document").ready(function() {
+	$('#video2_popup').dialog( { 
+		autoOpen: false,
+		width:674,
+		modal: true		
+	});
+	
+	$('#video2_text').click(function(e) {
+	    $('#video2_popup').dialog('open');
+	});
+	
+}); 
+</script>
+<div id="video2_popup">
+	<video width="660" height="480" id="video2-1" preload="none" autoplay="true">
+		<source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3317854299&feature=iv&src_vid=xMShXVtDo0I&v=hF3d_vhYzG0" />
+	</video>
+</div>
+<div id="video2_text">							
+								<video width="220" height="160" id="video2" preload="none">
+							    <source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3317854299&feature=iv&src_vid=xMShXVtDo0I&v=hF3d_vhYzG0" />
+								</video>
+</div>								
+								<div class="vtitle">Watch this video on <b>Data Consolidation is Key for Personalization</b> by Brendan Witcher, Forrester Research Analyst.</div>
+<?php } elseif ($playedAlready == 0) {
+    $videoCount++;
+    ?>	
+<script type="text/javascript">
+$("document").ready(function() {
+	$('#video2_popup').dialog( { 
+		autoOpen: false,
+		width:674,
+		modal: true		
+	});
+	
+	$('#video2_text').click(function(e) {
+	    $('#video2_popup').dialog('open');
+	});
+	
+}); 
+
+
+
+</script>
+<div id="video2_popup">
+	<video width="660" height="480" id="video2-1" preload="none" autoplay="true">
+		<source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3710074665&feature=iv&src_vid=xMShXVtDo0I&v=4YCWZ1xJT7w" />
+	</video>
+</div>
+<div id="video2_text">							
+								<video width="220" height="160" id="video2" preload="none">
+							    <source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_3710074665&feature=iv&src_vid=xMShXVtDo0I&v=4YCWZ1xJT7w" />
+								</video>
+</div>								
+								<div class="vtitle">Watch this video on <b>The Contextual Marketing Imperative Research Paper</b> by Brendan Witcher, Forrester Research Analyst.</div>
+<?php }?>								
+								</td>
+								<td valign="top" style="padding-left: 10px">
+<?php if (strpos($this->q4Recommendation, 'out for cognitive computing capabiilties to help make sense of')) {
+    $videoCount++;?>	
+<script type="text/javascript">
+$("document").ready(function() {
+	$('#video3_popup').dialog( { 
+		autoOpen: false,
+		width:674,
+		modal: true		
+	});
+	
+	$('#video3_text').click(function(e) {
+	    $('#video3_popup').dialog('open');
+	});
+	
+}); 
+
+
+
+</script>
+<div id="video3_popup">
+	<video width="660" height="480" id="video3-1" preload="none" autoplay="true">
+		<source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_1472546861&feature=iv&src_vid=4YCWZ1xJT7w&v=xMShXVtDo0I" />
+	</video>
+</div>
+<div id="video3_text">							
+								<video width="220" height="160" id="video3" preload="none">
+							    <source type="video/youtube" src="https://www.youtube.com/watch?annotation_id=annotation_1472546861&feature=iv&src_vid=4YCWZ1xJT7w&v=xMShXVtDo0I" />
+								</video>
+</div>								
+								<div class="vtitle">Watch this video on <b>The Personalization Gap</b> by Brendan Witcher, Forrester Research Analyst.</div>
+<?php } else {
+    $videoCount++;?>	
+<script type="text/javascript">
+$("document").ready(function() {
+	$('#video3_popup').dialog( { 
+		autoOpen: false,
+		width:674,
+		modal: true		
+	});
+	
+	$('#video3_text').click(function(e) {
+	    $('#video3_popup').dialog('open');
+	});
+	
+}); 
+
+
+
+</script>
+<div id="video3_popup">
+	<video width="660" height="480" id="video3-1" preload="none" autoplay="true">
+		<source type="video/youtube" src="https://youtu.be/Zca4GMOVimU?list=PLvh5r_t6exZsTYsl8xvp6w-5etfP_LCiz" />
+	</video>
+</div>
+<div id="video3_text">
+								<video width="220" height="160" id="video3" preload="none">
+							    <source type="video/youtube" src="https://youtu.be/Zca4GMOVimU?list=PLvh5r_t6exZsTYsl8xvp6w-5etfP_LCiz" />
+								</video>
+</div>								
+								<div class="vtitle">Watch this video on <b>The Next Level of Personalization is Contextualization</b></div>
+														
+<?php }?>								
+								</td>								
+							</tr>
+						</table>
+					</div>
+
+				</td>
+				</tr>
+				
+				<tr>
+
+				<td colspan=3><!-- <div class="stitle">Useful links</div>  -->
+				<div class="scontent">
+				<table>
+					<tr>
+<?php $i = 0; if ($this->businessModelValue == 'qs2_1') {?> 
+					
+					<td width="220" valign="top" style="padding-left: 10px">
+					<a href="http://www.hybris.com/medias/sys_master/root/ha4/h37/8809794764830/Forrester-Mastering-Omnichannel-B2B-Customer-Engagement-October-2015-12pg.pdf" target="077">
+					<div>
+					<img width="220" height="160" src="/images/Forrester_image.png">
+					</div>
+					<div class="vtitle" style="color:#000305;">Forrester Research Paper: <b>Mastering Omni-channel B2B Customer Engagement</b></div>
+					</a>
+					</td>
+
+<?php $i++;}?>
+
+<?php if ($this->predictiveAnalytics == 'No') {?> 
+					<td width="220" valign="top" style="padding-left: 10px">
+					<a href="http://www.sap.com/bin/sapcom/en_us/downloadasset.2014-06-jun-12-15.the-math-of-modern-marketing-how-predictive-analytics-makes-marketing-more-effective-pdf.bypassReg.html" target="079">					
+					<div>
+					<img width="220" height="160" src="/images/IDC_Marketer2.png">
+					</div>
+					<div class="vtitle" style="color:#000305;">The Math of Modern Marketing: <b>How Predictive Analytics Makes Marketing More Effective, IDC</b></div>
+					</a>
+					</td>
+<?php $i++;}?>
+
+					<td width="220" valign="top" style="padding-left: 10px">
+					<a href="http://www.hybris.com/medias/sys_master/root/hff/h85/8809793749022/The-Contextual-Marketing-Imperative-Final-101515.pdf" target="724">
+					<div>
+					<img width="220" height="160" src="/images/Forrester_image2.png">
+					</div>					
+					<div class="vtitle" style="color:#000305;">Forrester Research Paper: <b>The Contextual Marketing Imperative</b></div>
+					</a>
+					</td>
+
+<?php 
+	for ($j = $i; $j < 2; $j++) {
+		echo('<td>&nbsp;</td>');	
+	}
+?>				
+				</tr>
+				</table>
+				</div>
+
+				</td>
+				</tr>	
+				
+				<tr>
+
+				<td colspan=3><!-- <div class="stitle">Share this Link</div>  -->
+				<div class="scontent">
+				<br><br><br>
+					To share this personalized report click here: <a href="mailto:<?php echo($this->email);?>?subject=Personalization%20Survey%20Results%20for%20<?php echo($this->firstname);?>%20<?php echo($this->lastname);?>					
+					&body=Dear%20<?php echo($this->firstname);?>%0D%0A%0D%0AThank%20you%20for%20taking%20the%20SAP%20Hybris'%20personalization%20benchmark%20survey.%20Below%20is%20the%20link%20to%20your%20benchmark%20results%0D%0Ahttp://www.personalizationbenchmark.com/summary/?link=<?php echo($this->permenantKey);?>%0D%0A%0D%0AAlso,%20please%20check%20out%20the%20free%20trial%20of%20the%20SAP%20S/4HANA%20Marketing%20Cloud%20solution.%0D%0Ahttps://www.hybris.com/en/downloads/free-trial/hybris-marketing/901%0D%0A%0D%0AFor%20additional%20information%20about%20SAP%20Hybris%20solution%20please%20check%20out%20our%20website:%20http://www.hybris.com/marketing.%0D%0A%0D%0AThanks%0D%0ASAP%20Hybris%20team" target="_top"><img src="/images/email_icon.png"></a>
+				</div>
+
+
+				</td>
+				</tr>
+									
+			</table>	
+		</div>	
+		<div class="bottomcontent">
+					<div class="submitcontent">
+						&nbsp;
+					</div>
+		</div>
+	</div>	
+<script>
+
+jQuery(document).ready(function($) {
+    $('#video1').mediaelementplayer();
+});
+
+jQuery(document).ready(function($) {
+    $('#video1-1').mediaelementplayer();
+});
+
+jQuery(document).ready(function($) {
+    $('#video2').mediaelementplayer();
+});
+
+jQuery(document).ready(function($) {
+    $('#video2-1').mediaelementplayer();
+});
+
+jQuery(document).ready(function($) {
+    $('#video3').mediaelementplayer();
+});
+
+jQuery(document).ready(function($) {
+    $('#video3-1').mediaelementplayer();
+});
+
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+width = $("#chart1").width() - margin.left - margin.right,
+height = $("#chart1").width() - margin.top - margin.bottom,
+radius = Math.min(width, height) * .47,
+
+//benchmarkArc
+innerRadius = Math.min(width, height) * .32, 
+outerRadius = innerRadius * 1.14,
+
+//surveyArc
+innerRadius2 = Math.min(width, height) * .37,
+outerRadius2 = innerRadius2 * 1.12;
+t = 2 * Math.PI; 
+
+var benchmarkArc = d3.svg.arc()
+	.innerRadius(innerRadius)
+	.outerRadius(outerRadius);
+
+var surveyArc = d3.svg.arc()
+	.innerRadius(innerRadius2)
+	.outerRadius(outerRadius2);
+
+var svg = d3.select("#chart1").append("svg")
+.attr("width", width)
+.attr("height", height)
+.append("g")
+.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+var benchmarkArc2 = d3.svg.arc()
+.innerRadius(innerRadius)
+.outerRadius(outerRadius);
+
+var surveyArc2 = d3.svg.arc()
+.innerRadius(innerRadius2)
+.outerRadius(outerRadius2);
+
+
+var svg2 = d3.select("#chart2").append("svg")
+.attr("width", width)
+.attr("height", height)
+.append("g")
+.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+var benchmarkArc3 = d3.svg.arc()
+.innerRadius(innerRadius)
+.outerRadius(outerRadius);
+
+var surveyArc3 = d3.svg.arc()
+.innerRadius(innerRadius2)
+.outerRadius(outerRadius2);
+
+var svg3 = d3.select("#chart3").append("svg")
+.attr("width", width)
+.attr("height", height)
+.append("g")
+.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+var benchmarkArc4 = d3.svg.arc()
+.innerRadius(innerRadius)
+.outerRadius(outerRadius);
+
+var surveyArc4 = d3.svg.arc()
+.innerRadius(innerRadius2)
+.outerRadius(outerRadius2);
+
+var svg4 = d3.select("#chart4").append("svg")
+.attr("width", width)
+.attr("height", height)
+.append("g")
+.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+
+var textCenter = svg.append("g")
+.attr("class", "explanationWrapper");
+var textCenter2 = svg2.append("g")
+.attr("class", "explanationWrapper");
+var textCenter3 = svg3.append("g")
+.attr("class", "explanationWrapper");
+var textCenter4 = svg4.append("g")
+.attr("class", "explanationWrapper");
+
+
+
+svg.append("path")
+.attr("id", "q1benchmark")
+.datum({startAngle: 0, endAngle: <?php echo($this->q1BenchmarkAngle);?>*t})
+.style("stroke", "#e6e6e6")	
+.style("fill", "#e6e6e6")
+.transition().duration(200)	
+.attr("d", benchmarkArc)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q1BenchmarkAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return benchmarkArc(d);
+	   }
+});
+
+svg.append("path")
+.attr("id", "q1survey")
+.datum({startAngle: 0, endAngle: <?php echo($this->q1SurveyAngle);?>*t})
+.style("stroke", "#fdec99")
+.style("fill", "#fdec99")
+.transition().duration(2000)	
+.attr("d", surveyArc)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q1SurveyAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return surveyArc(d);
+	   }
+});	
+
+textCenter.append("text")
+.attr("class", "explanationbold")
+.style("fill","#00b3ee")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", -40 + "px")
+.attr("dy", "1em")
+.attr("opacity", 1)
+.text("<?php echo($this->q1MyPercent);?>%")
+.call(wrap, 120);
+
+textCenter.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 10 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q1Analysis);?>")
+.call(wrap, 120);
+
+textCenter.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 25 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q1Analysis2);?>")
+.call(wrap, 120);
+
+svg2.append("path")
+.datum({startAngle: 0, endAngle: <?php echo($this->q2BenchmarkAngle);?>*t})
+.style("stroke", "#cccccc")	
+.style("fill", "#cccccc")
+.transition().duration(200)	
+.attr("d", benchmarkArc2)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q2BenchmarkAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return benchmarkArc2(d);
+	   }
+});
+
+svg2.append("path")
+.datum({startAngle: 0, endAngle: <?php echo($this->q2SurveyAngle);?>*t})
+.style("stroke", "#fce366")
+.style("fill", "#fce366")
+.transition().duration(2000)	
+.attr("d", surveyArc2)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q2SurveyAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return surveyArc2(d);
+	   }
+});	
+
+textCenter2.append("text")
+.attr("class", "explanationbold")
+.style("fill","#00b3ee")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", -40 + "px")
+.attr("dy", "1em")
+.attr("opacity", 1)
+.text("<?php echo($this->q2MyPercent);?>%")
+.call(wrap, 120);
+
+textCenter2.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 10 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q2Analysis);?>")
+.call(wrap, 120);
+
+textCenter2.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 25 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q2Analysis2);?>")
+.call(wrap, 120);
+
+svg3.append("path")
+.datum({startAngle: 0, endAngle: <?php echo($this->q3BenchmarkAngle);?>*t})
+.style("stroke", "#b3b3b3")	
+.style("fill", "#b3b3b3")
+.transition().duration(200)	
+.attr("d", benchmarkArc3)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q3BenchmarkAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return benchmarkArc3(d);
+	   }
+});
+
+svg3.append("path")
+.datum({startAngle: 0, endAngle: <?php echo($this->q3SurveyAngle);?>*t})
+.style("stroke", "#fdce00")
+.style("fill", "#fdce00")
+.transition().duration(2000)	
+.attr("d", surveyArc3)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q3SurveyAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return surveyArc3(d);
+	   }
+});	
+
+textCenter3.append("text")
+.attr("class", "explanationbold")
+.style("fill","#00b3ee")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", -40 + "px")
+.attr("dy", "1em")
+.attr("opacity", 1)
+.text("<?php echo($this->q3MyPercent);?>%")
+.call(wrap, 120);
+
+textCenter3.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 10 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q3Analysis);?>")
+.call(wrap, 120);
+
+textCenter3.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 25 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q3Analysis2);?>")
+.call(wrap, 120);
+
+svg4.append("path")
+.datum({startAngle: 0, endAngle: <?php echo($this->q4BenchmarkAngle);?>*t})
+.style("stroke", "#999999")	
+.style("fill", "#999999")
+.transition().duration(200)	
+.attr("d", benchmarkArc4)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q4BenchmarkAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return benchmarkArc4(d);
+	   }
+});
+
+svg4.append("path")
+.datum({startAngle: 0, endAngle: <?php echo($this->q4SurveyAngle);?>*t})
+.style("stroke", "#dea400")
+.style("fill", "#dea400")
+.transition().duration(2000)	
+.attr("d", surveyArc4)
+.attrTween("d", function(d) {
+	   var i = d3.interpolate(0, <?php echo($this->q4SurveyAngle);?>*t);
+	   return function(t) {
+		   d.endAngle = i(t);
+		 return surveyArc4(d);
+	   }
+});	
+
+textCenter4.append("text")
+.attr("class", "explanationbold")
+.style("fill","#00b3ee")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", -40 + "px")
+.attr("dy", "1em")
+.attr("opacity", 1)
+.text("<?php echo($this->q4MyPercent);?>%")
+.call(wrap, 120);
+
+textCenter4.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 10 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q4Analysis);?>")
+.call(wrap, 120);
+
+textCenter4.append("text")
+.attr("class", "explanation")
+.style("fill","#000")
+.attr("text-anchor", "middle")
+.attr("x", 0 + "px")
+.attr("y", 25 + "px")
+.attr("dy", "1em")
+.attr('opacity', 1)
+.text("<?php echo($this->q4Analysis2);?>")
+.call(wrap, 120);
+
+function wrap(text, width) {
+    var text = d3.select(this[0][0]),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.2, 
+        y = text.attr("y"),
+		x = text.attr("x"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+		
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+      };
+    };  
+};
+
+
+</script>	
+</body>
+</html>

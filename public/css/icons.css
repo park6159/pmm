@@ -1,0 +1,564 @@
+/*  
+// Icon Classes */
+.icon-save {
+  background-image:url(/images/icons/accept.png) ! important;
+}
+.icon-cancel {
+  background-image:url(/images/icons/delete.png) ! important;
+}
+.big_save {
+  background-image:url(/images/icons/mini/buttoncheck-01.png) ! important;
+}
+.big_cancel {
+  background-image:url(/images/icons/mini/buttoncancel-01.png) ! important;
+}
+.shipping_orders {
+  background-image:url(/images/icons/ship.gif) ! important;
+}
+.order_status {
+  background-image:url(/images/icons/collapse-all.gif) ! important;
+}
+.query_orders {
+  background-image:url(/images/icons/zoom.png) ! important;
+}
+.icon-ob {
+	background-image:url(../../../../resources/images/icons/ob_16.png) ! important;
+}
+.icon-graph {
+	background-image:url(/images/icons/chart_curve.png) ! important;
+}
+.icon-chart {
+	background-image:url(/images/icons/chart_bar.png) ! important;
+}
+.icon-chat {
+	background-image:url(/images/icons/chat.png) ! important;
+}
+.icon-prefs {
+	background-image:url(/images/icons/application_form.png) ! important;
+}
+.icon-ok {
+	background-image:url(/images/icons/ok16.png) ! important;
+}
+.icon-next {
+	background-image:url(/images/icons/next32.png) ! important;
+}
+.icon-tcomplete {
+	background-image:url(/images/icons/check-ok-icon.png) ! important;
+}
+.icon-alert {
+	background-image:url(/images/icons/alertIcon.png) ! important;
+}
+.icon-dbsave {
+	background-image:url(/images/icons/database_save.png) ! important;
+}
+.icon-view-tile {
+	background-image:url(/images/icons/application_view_tile.png) ! important;
+}
+.icon-check, .icon-check-off {
+	background-image:url(../../ext/resources/images/default/menu/unchecked.gif) ! important;
+}
+.icon-check-on {
+	background-image:url(../../ext/resources/images/default/menu/checked.gif) ! important;
+}
+.icon-stat-data {
+	background-image:url(/images/icons/kate_16.png) ! important;
+}
+.icon-rename {
+	background-image:url(/images/icons/textfield_rename.png) ! important;
+}
+.icon-add-col {
+	background-image:url(/images/icons/page_white_add.png) ! important;
+}
+.icon-del-col {
+	background-image:url(/images/icons/page_white_delete.png) ! important;
+}
+.icon-adobe-flash {
+	background-image:url(/images/icons/flash.png) ! important;
+}
+.icon-save-table {
+	background-image:url(/images/icons/table_save.png) ! important;
+}
+.endicia, .manual_endicia {
+  background-image:url(/images/icons/usps.jpg) ! important;
+}
+
+.icon-calendar {
+  background-image:url(/images/icons/calendar_icon.gif) ! important;
+}
+
+.customers {
+  background-image:url(/images/icons/user2_16.png) ! important;
+}
+
+.inventory_warehouse {
+  background-image:url(/images/icons/warehouse.png) ! important;
+}
+
+.inventory_customer {
+  background-image:url(/images/icons/user2_16.png) ! important;
+}
+
+.inventory_sku {
+  background-image:url(/images/icons/plugin.png) ! important;
+}
+
+.balance_adjustment {
+  background-image:url(/images/icons/calculator.png) ! important;
+}
+
+.inventory_adjustment {
+  background-image:url(/images/icons/wrench_orange.png) ! important;
+}
+
+.dashboard {
+  background-image:url(/images/icons/chart_curve.png) ! important;
+}
+
+.afm, .manual_afm {
+  background-image:url(/images/icons/afm.png) ! important;
+}
+.stamps, .manual_stamps {
+  background-image:url(/images/icons/stamps.png) ! important;
+}
+.ups, .manual_ups {
+  background-image:url(/images/icons/ups.png) ! important;
+}
+.dart, .manual_dart {
+  background-image:url(/images/icons/dart.png) ! important;
+}
+
+.fedex, .manual_fedex {
+  background-image:url(/images/icons/fedex.png) ! important;
+}
+.sku_discrepancy {
+  background-image:url(/images/icons/folder_brick.png) ! important;
+}
+.order_discrepancy {
+  background-image:url(/images/icons/calculator.png) ! important;
+}
+.empty {
+  background-image:url(/images/icons/empty.png) ! important;
+}
+.excel32icon {
+  background-image:url(/images/icons/excel32.png) ! important;
+}
+.cp, .manual_cp {
+  background-image:url(/images/icons/canadapost.png) ! important;
+}
+.icon-add-tab {
+	background-image:url(/images/icons/tab_add.png) ! important;
+}
+.icon-del-tab {
+	background-image:url(/images/icons/tab_delete.png) ! important;
+}
+.icon-go-tab {
+	background-image:url(/images/icons/tab_go.png) ! important;
+}
+.icon-add-table {
+	background-image:url(/images/icons/table_add.png) ! important;
+}
+.icon-del-table {
+	background-image:url(/images/icons/table_delete.png) ! important;
+}
+.icon-admin {
+	background-image:url(/images/icons/adv_settings_16.png) ! important;
+}
+.icon-grid {
+    background-image:url(/images/icons/application_view_columns.png) !important;
+}
+.icon-key {
+	background-image:url(/images/icons/key.png) ! important;
+}
+.icon-checkin {
+	background-image:url(/images/icons/door-in-icon.png) ! important;
+}
+.icon-checkout {
+	background-image:url(/images/icons/door-out-icon.png) ! important;
+}
+.icon-trashcan {
+	background-image:url(/images/icons/trashcan.png) ! important;
+}
+.icon-key2 {
+	background-image:url(/images/icons/key_16.png) ! important;
+}
+.icon-expand-all {
+	background-image:url(/images/icons/expand-all.gif) ! important;
+}
+.icon-collapse-all {
+	background-image:url(/images/icons/collapse-all.gif) ! important;
+}
+.icon-tree-orgboard {
+	background-image:url(/images/icons/chart_organisation.png) ! important;
+}
+.process_setup {
+	background-image:url(/images/icons/chart_organisation.png) ! important;
+}
+.icon-tree-area {
+	background-image:url(/images/icons/post_title.png) ! important;
+}
+.icon-tree-post {
+	background-image:url(/images/icons/page_white.png) ! important;
+}
+.icon-plus {
+	background-image:url(/images/icons/add.png) ! important;
+}
+.icon-minus {
+	background-image:url(/images/icons/delete.png) ! important;
+}
+.icon-house {
+	background-image:url(/images/icons/house_16.png) ! important;
+}
+.icon-user {
+	background-image:url(/images/icons/user2_16.png) ! important;
+}
+.icon-trash-empty {
+	background-image:url(/images/icons/bin_empty.png) ! important;
+}
+.icon-trash-closed {
+	background-image:url(/images/icons/bin_closed.png) ! important;
+}
+.icon-disk {
+	background-image:url(/images/icons/disk.png) ! important;
+}
+.icon-disk-bullet {
+	background-image:url(/images/icons/bullet_disk.png) ! important;
+}
+.icon-undo {
+	background-image:url(/images/icons/arrow_undo.png) ! important;
+}
+.icon-loading {
+	background-image:url(../../ext/resources/images/default/grid/grid-loading.gif) ! important;
+}
+.icon-db-refresh {
+	background-image:url(/images/icons/database_refresh.png) ! important;
+}
+.icon-db-gear {
+	background-image:url(/images/icons/database_gear.png) ! important;
+}
+.icon-magnifier {
+	background-image:url(/images/icons/magnifier.png) ! important;
+}
+.icon-wrench {
+	background-image:url(/images/icons/wrench_16.png) ! important;
+}
+.icon-wrench-orange {
+	background-image:url(/images/icons/wrench_orange.png) ! important;
+}
+
+.icon-status-valid {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 2px;
+    background-image:url(/images/icons/accept.png) ! important;
+}
+
+.icon-status-save {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 2px;
+    background-image:url(/images/icons/ajax-loader.gif) ! important;
+}
+
+.icon-star {
+	background-image:url(/images/icons/star.png) ! important;
+}
+
+.icon-servicenow {
+	background-image:url(/images/icons/servicenow.jpg) ! important;
+}
+
+.icon-lock-go {
+	background-image:url(/images/icons/lock_go.png) ! important;
+}
+.icon-group-add {
+	background-image:url(/images/icons/group_add.png) ! important;
+}
+.icon-doctor {
+	background-image:url(/images/icons/doctor.png) ! important;
+}
+.user_account {
+	background-image:url(/images/icons/group_add.png) ! important;
+}
+.icon-group-del {
+	background-image:url(/images/icons/group_delete.png) ! important;
+}
+.icon-stat-portal {
+	background-image:url(/images/icons/stat_portal_16.png) ! important;
+}
+.task_setup {
+	background-image:url(/images/icons/stat_portal_16.png) ! important;
+}
+.icon-stat-list {
+	background-image:url(/images/icons/stat_list_16.png) ! important;
+}
+.icon-cross {
+	background-image:url(/images/icons/cross.png) ! important;
+}
+.icon-defaults {
+	background-image:url(/images/icons/arrow_rotate_clockwise.png) ! important;
+}
+.icon-load {
+	background-image:url(/images/icons/database_go.png) ! important;
+}
+.icon-reconfigure {
+	background-image:url(/images/icons/database_gear.png) ! important;
+}
+.icon-working {
+	background-image:url(../../ext/resources/images/default/grid/wait.gif) ! important;
+}
+.icon-upload {
+	background-image:url(/images/icons/up.png) ! important;
+}
+.icon-folder-add {
+	background-image:url(/images/icons/folder_add.png) ! important;
+}
+.icon-open {
+	background-image:url(/images/icons/application_go.png) ! important;
+}
+.icon-open24 {
+	background-image:url(/images/icons/application_go24.png) ! important;
+}
+.icon-open-self {
+	background-image:url(/images/icons/application.png) ! important;
+}
+.icon-open-popup {
+	background-image:url(/images/icons/application_double.png) ! important;
+}
+.icon-open-blank {
+	background-image:url(/images/icons/application_cascade.png) ! important;
+}
+.icon-open-download {
+	background-image:url(/images/icons/application_put.png) ! important;
+}
+.icon-refresh {
+	background-image:url(/images/icons/arrow_refresh.png) ! important;
+}
+.icon-pencil {
+	background-image:url(/images/icons/pencil.png) ! important;
+}
+.icon-stop {
+	background-image:url(/images/icons/control_stop.png) ! important;
+}
+.icon-email {
+	background-image:url(/images/icons/email.png) ! important;
+}
+.icon-email-compose {
+	background-image:url(/images/icons/email_edit.png) ! important;
+}
+.icon-coins {
+	background-image:url(/images/icons/coins.png) ! important;
+}
+.cogs_report {
+  background-image:url(/images/icons/coins.png) ! important;
+}
+.icon-clock {
+	background-image:url(/images/icons/clock.png) ! important;
+}
+.icon-zoom {
+	background-image:url(/images/icons/zoom.png) ! important;
+}
+.icon-print {
+	background-image:url(/images/icons/printer.png) ! important;
+}
+.icon-folder-component {
+	background-image:url(/images/icons/folder_brick.png) ! important;
+}
+.icon-plugin {
+	background-image:url(/images/icons/plugin.png) ! important;
+}
+.icon-extension {
+	background-image:url(/images/icons/brick.png) ! important;
+}
+.icon-function {
+	background-image:url(/images/icons/flag_yellow.png) ! important;
+}
+.icon-bulb {
+	background-image:url(/images/icons/lightbulb.png) ! important;
+}
+.icon-bulb-off {
+	background-image:url(/images/icons/lightbulb_off.png) ! important;
+}
+.icon-copy {
+	background-image:url(/images/icons/page_white_copy.png) ! important;
+}
+.icon-star {
+	background-image:url(/images/icons/award_star_gold_3.png) ! important;
+}
+.icon-edit-record {
+	background-image:url(/images/icons/table_edit.png) ! important;
+}
+.icon-actions {
+	background-image:url(/images/icons/lightning.png) ! important;
+}
+.icon-form-add {
+	background-image:url(/images/icons/layout_add.png) ! important;
+}
+.menu_setup {
+	background-image:url(/images/icons/layout_add.png) ! important;
+}
+.icon-html {
+	background-image:url(/images/icons/html.png) ! important;
+}
+.icon-script {
+	background-image:url(/images/icons/script.png) ! important;
+}
+.icon-php {
+	background-image:url(/images/icons/script_code.png) ! important;
+}
+.icon-css {
+	background-image:url(/images/icons/css.png) ! important;
+}
+.icon-run {
+	background-image:url(/images/icons/application_go.png) ! important;
+}
+.icon-info {
+	background-image:url(/images/icons/information.png) ! important;
+}
+.icon-wages {
+	background-image:url(/images/icons/euro_16.png) ! important;
+}
+.icon-calculator {
+	background-image:url(/images/icons/calculator.png) ! important;
+}
+.icon-add-wage {
+	background-image:url(/images/icons/coins_add.png) ! important;
+}
+.icon-del-wage {
+	background-image:url(/images/icons/bin_closed.png) ! important;
+}
+.icon-manual {
+	background-image:url(/images/icons/book_open.png) ! important;
+}
+.icon-lock {
+	background-image:url(/images/icons/lock16.png) ! important;
+}
+.icon-lock-open {
+	background-image:url(/images/icons/unlock16.png) ! important;
+}
+.icon-wh-store {
+  background-image:url(/images/icons/store.png) ! important;
+}
+.icon-wh {
+  background-image:url(/images/icons/warehouse.png) ! important;
+}
+
+.icon-pdf {
+  background-image:url(/images/icons/pdf.gif) ! important;
+}
+.icon-excel {
+  background-image:url(/images/icons/page_white_excel.png) ! important;
+}
+
+.icon-project {
+  background-image:url(/images/icons/project.png) ! important;
+}
+
+.icon-baseline {
+  background-image:url(/images/icons/camera.png) ! important;
+}
+
+.icon-no1 {
+  background-image:url(/images/icons/noone.png) ! important;
+}
+
+.icon-no2 {
+  background-image:url(/images/icons/notwo.png) ! important;
+}
+
+#loading-mask {
+  position: absolute;
+  left:     0;
+  top:      0;
+  width:    100%;
+  height:   100%;
+  z-index:  20000;
+  background-color: white;
+}
+ 
+#loading {
+  position: absolute;
+  left:     50%;
+  top:      40%;
+  padding:  2px;
+  z-index:  20001;
+  height:   auto;
+  margin:   -35px 0 0 -30px;
+}
+ 
+#loading .loading-indicator {
+	/*
+  background: url(/images/loading.gif) no-repeat;
+  */
+	background: url(/images/extanim32.gif) no-repeat;
+  color:      #555;
+  font:       bold 13px tahoma,arial,helvetica;
+  padding:    8px 42px;
+  margin:     0;
+  text-align: center;
+  height:     auto;
+}
+
+/*  Icon Classes end */
+
+/* LIST #4 320px background-image:url(../images/hover.png);*/
+#list4 { width:95%; font-family:Georgia, Times, serif; font-size:14px; }
+/*#list4 ol { list-style: none; }*/
+#list4 ol li { }
+#list4 ol li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
+  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:10px; cursor:pointer; }
+#list4 ol li a:hover { color:#FFFFFF; background-color:#00AAC1; background-repeat:repeat-x; }
+#list4 ol li a strong { margin-right:10px; }
+
+#list3 { width:95%; font-family:Georgia, Times, serif; font-size:14px; }
+#list3 ul { list-style: square; }
+#list3 ul li { }
+#list3 ul li a { display:block; text-decoration:none; color:#000000; background-color:#FFFFFF; line-height:30px;
+  border-bottom-style:solid; border-bottom-width:1px; border-bottom-color:#CCCCCC; padding-left:10px; cursor:pointer; }
+#list3 ul li a:hover { color:#FFFFFF; background-color:#00AAC1; background-repeat:repeat-x; }
+#list3 ul li a strong { margin-right:10px; }
+
+
+.x-grid-cell-myColumn {background:#add2ed;}
+.x-grid-cell-myColumn2 {background:#add2ed;}
+.x-grid-cell-myColumn3 {background:#add2ed;}
+
+
+.status-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #ccc;
+    color: #006080;
+}
+
+.status-tooltip .status-tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    width: 500px;
+    background-color: #fff;
+    color: #000;
+    text-align: left;
+    padding: 5px 0;
+    border-radius: 6px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltip-right {
+  top: -5px;
+  left: 110%;  
+}
+
+.tooltip-right::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
+}
+
+.status-tooltip:hover .status-tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

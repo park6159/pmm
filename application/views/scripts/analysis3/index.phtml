@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Analysis</title>
+	<meta charset="utf-8" />	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/jquery-ui.css">	    
+	<link rel="stylesheet" href="/css/analysis-style.css" type="text/css">  
+    
+    <!-- JS -->    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="/jquery-ui.js"></script>	
+	<script src="//d3js.org/d3.v3.min.js"></script>
+	
+<?php if($this->debug == 1) {?>
+   		
+<SCRIPT LANGUAGE="JavaScript">
+function popupWin() {
+	text =  "<html>\n<head>\n<title>Pop Window</title>\n<body>\n";
+	text += "<center>\n<br>";
+	text += "<table><tr><td valign=top><?php echo($this->log1);?></td><td valign=top><?php echo($this->log2);?></td><td valign=top><?php echo($this->log3);?></td><td valign=top><?php echo($this->log4);?></td></tr></table>";
+	text += "</center>\n</body>\n</html>\n";
+	setTimeout('windowProp(text)', 2000); 		// delay 3 seconds before opening
+}
+
+function windowProp(text) {
+	newWindow = window.open('','newWin','width=900,height=500');
+	newWindow.document.write(text);
+	//setTimeout('closeWin(newWindow)', 5000);	// delay 5 seconds before closing
+}
+
+</script>	
+<?php }?>
+	
+</head>	
+
+<?php if($this->debug == 1) {?>
+<body class="body" onLoad="popupWin()">
+<?php } else {?>
+<body class="body">	
+<?php }?>
+
+<body class="body">		
+	<div class="mainContent">	
+		<!-- <div class="midcontent">  -->
+			<div id="chart"></div>
+			
+			<div id="clickerWrapper">						
+				<div id="clicker">Let's Start</div>
+			</div>
+			<div id="buttonWrapper">
+				<div id="buttonWrapperInner">
+					<div id="skip" class="sideButton">&nbsp;</div>
+					<div id="reset" class="sideButton">RESET</div>
+					<div id="link" class="sideButton">&nbsp;</div>
+				</div>
+			</div>
+		<!-- </div>  -->
+	</div>
+<script>
+
+$("document").ready(function() {
+
+	$('#info_popup').dialog( { 
+		autoOpen: false,
+		width:480,
+		modal: true		
+	});
+
+	$('#incomplete_error').dialog( { 
+		autoOpen: false,
+		width:420,
+		modal: true,
+		buttons: [
+		            {
+		              text: "OK",
+		              click: function() {
+		                $( this ).dialog( "close" );
+		              }
+		            }
+		          ]	
+	});
+	
+}); 	
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+width = 800 - margin.left - margin.right,
+height = 550 - margin.top - margin.bottom,
+
+radius = Math.min(width, height) * .47,
+
+//benchmarkArc
+innerRadius = Math.min(width, height) * .32, 
+outerRadius = innerRadius * 1.14,
+
+//surveyArc
+innerRadius2 = Math.min(width, height) * .37,
+outerRadius2 = innerRadius2 * 1.11;
+t = 2 * Math.PI; 
+
+var benchmarkArc = d3.svg.arc()
+	.innerRadius(innerRadius)
+	.outerRadius(outerRadius);
+
+var surveyArc = d3.svg.arc()
+	.innerRadius(innerRadius2)
+	.outerRadius(outerRadius2);
+
+var svg = d3.select("#chart").append("svg")
+	.attr("width", width)
+	.attr("height", height)
+	.append("g")
+	.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+/*Add the labels for the %'s*/
+
+	
+var textCenter = svg.append("g")
+  .attr("class", "explanationWrapper");
+
+// Initial Text  
+var middleTextTop = textCenter.append("text")
+	.attr("class", "explanation")
+	.style("fill","#00b3ee")
+	.attr("text-anchor", "middle")
+	.attr("x", 0 + "px")
+	.attr("y", -24*10/2 + "px")
+	.attr("dy", "1em")
+	.attr("opacity", 1)
+	//.text("For the Dutch version of the Deloitte Global Mobile Consumer Survey, Deloitte asked 2000 residents of the Netherlands about their mobile phone behavior")
+	.text("After Survey Introduction message needs to be here, After Survey Introduction message needs to be here.")
+	.call(wrap, 300);
+
+var middleTextMiddle = textCenter.append("text")
+	.attr("class", "explanation")
+	.style("fill","#00b3ee")
+	.attr("text-anchor", "middle")
+	.attr("x", 0 + "px")
+	.attr("y", 24*3/2 + "px")
+	.attr("dy", "1em")
+	.attr('opacity', 1)
+	.text("")
+	.call(wrap, 300);
+
+var middleTextBottom = textCenter.append("text")
+	.attr("class", "explanation")
+	.style("fill","#00b3ee")
+	.attr("text-anchor", "middle")
+	.attr("x", 0 + "px")
+	.attr("y", 24*3/2 + "px")
+	.attr("dy", "1em")
+	.attr('opacity', 1)
+	//.text("The respondents gave us information about the brand of their current main phone, and the brand of their previous main phone")
+	.text("After Survey Introduction message needs to be here, After Survey Introduction message needs to be here.")	
+	.call(wrap, 300);  
+
+var counter = 1,
+buttonTexts = ["Go on", "Go on","Continue","Okay","Continue","Finish","Summary"],
+//buttonTexts = ["1","2","3","4","5","6","7", "Finish"],
+
+opacityValueBase = 0.8,
+opacityValue = 0.4;
+
+d3.select("#reset")
+.on("click", function(e) {location.reload();});
+
+d3.select("#clicker").on("click", function(e){
+	
+	if (counter == 1) {
+
+		stopClicker(2000);
+
+		svg.append("path")
+		.attr("id", "q1")
+		.datum({startAngle: 0, endAngle: .25*t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", surveyArc);
+		
+		svg.append("path")
+		.attr("id", "q1-1")
+		.datum({startAngle: 0, endAngle: .25*t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", benchmarkArc);		
+
+		svg.append("path")
+		.attr("id", "q1benchmark")
+		.datum({startAngle: 0, endAngle: <?php echo($this->q1BenchmarkAngle);?>*t})
+		.style("stroke", "#e6e6e6")	
+		.style("fill", "#e6e6e6")
+		.transition().duration(200)	
+		.attr("d", benchmarkArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(0, <?php echo($this->q1BenchmarkAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return benchmarkArc(d);
+			   }
+		});
+
+		svg.append("path")
+		.attr("id", "q1survey")
+		.datum({startAngle: 0, endAngle: <?php echo($this->q1SurveyAngle);?>*t})
+		.style("stroke", "#fdec99")
+		.style("fill", "#fdec99")
+		.transition().duration(2000)	
+		.attr("d", surveyArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(0, <?php echo($this->q1SurveyAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return surveyArc(d);
+			   }
+		});		
+	
+		
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","15px")
+	        .style("fill","#00b3ee")
+			.attr("x", 5)  
+	        .attr("dy",-10)			
+	        .append("textPath")
+	        .attr("xlink:href","#q1")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Number Of Systems Used To Capture Data");
+	    }, 1500);
+
+
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 18) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q1survey")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Your Score");
+	    }, 1500);
+
+
+	    setTimeout(function(){
+	    	svg.append("line")
+	        .attr("x1", 0)
+	        .attr("x2", 0)
+	        .attr("y1", -radius+(Math.min(width, height)*.1))
+	        .attr("y2", -radius+10)
+	        .attr("stroke", "#b3b3b3")
+	        .attr("fill", "none")
+	        .attr("transform", function(d) {
+	         return "rotate(" + <?php echo($this->q1SurveyAngle);?>*t * (180/Math.PI) + ")";
+	        });
+	    }, 1600);
+
+	    setTimeout(function(){
+		    svg.append("text")
+	        .style("font-size","24px")
+	        .style("fill","#b3b3b3")		    
+		   .attr("class", "value")
+		   .attr("transform", function(d) {
+			   var dist=radius-5;
+			   var winkel=<?php echo($this->q1SurveyAngle);?>*t;
+			   var x=dist*Math.sin(winkel);
+			   var y=-dist*Math.cos(winkel);
+			   return "translate(" + x + "," + y + ")";
+	        })
+		    .attr("dy", "0.35em")
+	        //.attr("text-anchor", "middle")
+	        .attr("text-anchor", "left")
+		    .text("<?php echo($this->q1MyPercent);?>%");
+	    }, 1600);		
+	    
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 18) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q1benchmark")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Industry Average");
+	    }, 1500);
+	
+        
+		changeTopText(newText = "<?php echo($this->q1Analysis1);?>",
+				loc = 10/2, delayDisappear = 0, delayAppear = 3, finalText = true);
+
+		changeMiddleText(newText = "<?php echo($this->q1Analysis2);?>",
+				loc = -6/2, delayDisappear = 0, delayAppear = 5, classname="explanationbold");
+		
+		changeBottomText(newText = "<?php echo($this->q1Analysis3);?>",
+				loc = -1/2, delayDisappear = 0, delayAppear = 5, classname="explanation");
+				
+	} else if (counter == 2) {
+
+		stopClicker(1000);
+		
+		svg.append("path")
+		.attr("id", "q2")
+		.datum({startAngle: .25*t, endAngle: .5*t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", surveyArc);
+
+		svg.append("path")
+		.attr("id", "q2-1")
+		.datum({startAngle: .25*t, endAngle: .5*t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", benchmarkArc);
+				
+		svg.append("path")
+		.attr("id", "q2benchmark")
+		.datum({startAngle: .25*t, endAngle: <?php echo($this->q2BenchmarkAngle);?>*t})
+		.style("stroke", "#cccccc")	
+		.style("fill", "#cccccc")
+		.transition().duration(200)	
+		.attr("d", benchmarkArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(.25*t, <?php echo($this->q2BenchmarkAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return benchmarkArc(d);
+			   }
+		});
+		
+		svg.append("path")
+		.attr("id", "q2survey")		
+		.datum({startAngle: .25*t, endAngle: <?php echo($this->q2SurveyAngle);?>*t})
+		.style("stroke", "#fce366")
+		.style("fill", "#fce366")
+		.transition().duration(2000)	
+		.attr("d", surveyArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(.25*t, <?php echo($this->q2SurveyAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return surveyArc(d);
+			   }
+		});	
+
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","15px")
+	        .style("fill","#00b3ee")
+			.attr("x", 5)  
+	        .attr("dy",-10)			
+	        .append("textPath")
+	        .attr("xlink:href","#q2")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Plan to move to a single customer database");
+	    }, 1500);
+
+	    
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 18) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q2survey")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Your Score");
+	    }, 1500);
+
+
+	    setTimeout(function(){
+	    	svg.append("line")
+	        .attr("x1", 0)
+	        .attr("x2", 0)
+	        .attr("y1", -radius+(Math.min(width, height)*.1))
+	        .attr("y2", -radius+10)
+	        .attr("stroke", "#b3b3b3")
+	        .attr("transform", function(d) {
+	         return "rotate(" + <?php echo($this->q2SurveyAngle);?>*t * (180/Math.PI) + ")";
+	        });
+	    }, 1600);
+
+	    setTimeout(function(){
+		    svg.append("text")
+	        .style("font-size","24px")
+	        .style("fill","#b3b3b3")		    
+		   .attr("class", "value")
+		   .attr("transform", function(d) {
+			   var dist=radius-5;
+			   var winkel=<?php echo($this->q2SurveyAngle);?>*t;
+			   var x=dist*Math.sin(winkel);
+			   var y=-dist*Math.cos(winkel);
+			   return "translate(" + x + "," + y + ")";
+	        })
+		    .attr("dy", "0.35em")
+	        //.attr("text-anchor", "middle")
+	        .attr("text-anchor", "left")
+		    .text("<?php echo($this->q2MyPercent);?>%");
+	    }, 1600);
+	    	    
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 18) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q2benchmark")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Industry Average");
+	    }, 1500);		
+
+		changeTopText(newText = "<?php echo($this->q2Analysis1);?>",
+				loc = 10/2, delayDisappear = 0, delayAppear = 3, finalText = true);
+		
+		changeMiddleText(newText = "<?php echo($this->q2Analysis2);?>",
+				loc = -4/2, delayDisappear = 0, delayAppear = 5, classname="explanationbold");
+					
+		changeBottomText(newText = "<?php echo($this->q2Analysis3);?>",
+				loc = 1/2, delayDisappear = 0, delayAppear = 5, classname="explanation");
+			
+	    
+	} else if (counter == 3) {
+
+		stopClicker(1000);
+		
+		svg.append("path")
+		.attr("id", "q3")
+		.datum({startAngle: .5*t, endAngle: .75*t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", surveyArc);
+
+		svg.append("path")
+		.attr("id", "q3-1")
+		.datum({startAngle: .5*t, endAngle: .75*t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", benchmarkArc);
+						
+		svg.append("path")
+		.attr("id", "q3benchmark")			
+		.datum({startAngle: .5*t, endAngle: <?php echo($this->q3BenchmarkAngle);?>*t})
+		.style("stroke", "#b3b3b3")	
+		.style("fill", "#b3b3b3")
+		.transition().duration(200)	
+		.attr("d", benchmarkArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(.5*t, <?php echo($this->q3BenchmarkAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return benchmarkArc(d);
+			   }
+		});	
+
+		svg.append("path")
+		.attr("id", "q3survey")			
+		.datum({startAngle: .5*t, endAngle: <?php echo($this->q3SurveyAngle);?>*t})
+		.style("stroke", "#fdce00")
+		.style("fill", "#fdce00")
+		.transition().duration(2000)	
+		.attr("d", surveyArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(.5*t, <?php echo($this->q3SurveyAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return surveyArc(d);
+			   }
+		});		
+
+
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","15px")
+	        .style("fill","#00b3ee")
+			.attr("x", 5)  
+	        .attr("dy",-10)			
+	        .append("textPath")
+	        .attr("xlink:href","#q3")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" plans to use technologies to understand data");
+	    }, 1500);
+
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 17) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q3survey")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Your Score");
+	    }, 1500);
+
+	    setTimeout(function(){
+	    	svg.append("line")
+	        .attr("x1", 0)
+	        .attr("x2", 0)
+	        .attr("y1", -radius+(Math.min(width, height)*.1))
+	        .attr("y2", -radius+10)
+	        .attr("stroke", "#b3b3b3")
+	        .attr("transform", function(d) {
+	         return "rotate(" + <?php echo($this->q3SurveyAngle);?>*t * (180/Math.PI) + ")";
+	        });
+	    }, 1600);
+
+	    setTimeout(function(){
+		    svg.append("text")
+	        .style("font-size","24px")
+	        .style("fill","#b3b3b3")		    
+		   .attr("class", "value")
+		   .attr("transform", function(d) {
+			   var dist=radius-5;
+			   var winkel=<?php echo($this->q3SurveyAngle);?>*t;
+			   var x=dist*Math.sin(winkel);
+			   var y=-dist*Math.cos(winkel);
+			   return "translate(" + x + "," + y + ")";
+	        })
+		    .attr("dy", "0.35em")
+	        //.attr("text-anchor", "middle")
+	        .attr("text-anchor", "end")
+		    .text("<?php echo($this->q3MyPercent);?>%");
+	    }, 1600);
+
+	    	    
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 17) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q3benchmark")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Industry Average");
+	        //.text(" egarevA yrtsudnI");
+	    }, 1500);
+
+	    changeTopText(newText = "<?php echo($this->q3Analysis1_1);?>",
+				loc = 8/2, delayDisappear = 0, delayAppear = 2, finalText = true);
+		
+		changeMiddleText(newText = "<?php echo($this->q3Analysis1_2);?>",
+				loc = -4/2, delayDisappear = 0, delayAppear = 3, classname="explanationbold");
+					
+		changeBottomText(newText = "<?php echo($this->q3Analysis1_3);?>",
+				loc = 2/2, delayDisappear = 0, delayAppear = 5, classname="explanation");
+		
+	} else if (counter == 4) {
+
+		stopClicker(1000);
+		
+<?php 	if (empty($this->q3Analysis2)) { ?>
+		    changeTopText(newText = "<?php echo($this->q3Analysis2);?>",
+					loc = 8/2, delayDisappear = 0, delayAppear = 1, finalText = true);
+			
+			changeMiddleText(newText = "",
+					loc = -4/2, delayDisappear = 0, delayAppear = 1, classname="explanationbold");
+						
+			changeBottomText(newText = "",
+					loc = -8/2, delayDisappear = 0, delayAppear = 2, classname="explanation");
+<?php		} else { ?>
+		    changeTopText(newText = "<?php echo($this->q3Analysis2);?>",
+					loc = 8/2, delayDisappear = 0, delayAppear = 2, finalText = true);
+			
+			changeMiddleText(newText = "",
+					loc = -4/2, delayDisappear = 0, delayAppear = 3, classname="explanationbold");
+						
+			changeBottomText(newText = "",
+					loc = 2/2, delayDisappear = 0, delayAppear = 5, classname="explanation");
+<?php		} ?>
+
+	
+	} else if (counter == 5) {
+
+		stopClicker(1000);
+		
+		svg.append("path")
+		.attr("id", "q4")
+		.datum({startAngle: .75*t, endAngle: t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", surveyArc);
+
+		svg.append("path")
+		.attr("id", "q4-1")
+		.datum({startAngle: .75*t, endAngle: t})
+		.style("stroke", "#FFF")
+		.style("fill", "#FFF")
+		.attr("d", benchmarkArc);
+
+				
+		svg.append("path")
+		.attr("id", "q4benchmark")
+		.datum({startAngle: .75*t, endAngle: <?php echo($this->q4BenchmarkAngle);?>*t})
+		.style("stroke", "#999999")	
+		.style("fill", "#999999")
+		.transition().duration(200)	
+		.attr("d", surveyArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(.75*t, <?php echo($this->q4BenchmarkAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return benchmarkArc(d);
+			   }
+		});	
+		
+		svg.append("path")
+		.attr("id", "q4survey")		
+		.datum({startAngle: .75*t, endAngle: <?php echo($this->q4SurveyAngle);?>*t})
+		.style("stroke", "#dea400")
+		.style("fill", "#dea400")
+		.transition().duration(2000)	
+		.attr("d", surveyArc)
+		.attrTween("d", function(d) {
+			   var i = d3.interpolate(.75*t, <?php echo($this->q4SurveyAngle);?>*t);
+			   return function(t) {
+				   d.endAngle = i(t);
+				 return surveyArc(d);
+			   }
+		});
+
+
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#00b3ee")
+			.attr("x", 5)  
+	        .attr("dy",-10)			
+	        .append("textPath")
+	        .attr("xlink:href","#q4")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Ability to understand and respond to customer intent");
+	    }, 1500);
+
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 17) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q4survey")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Your Score");
+	    }, 1500);
+	    
+	    setTimeout(function(){
+	    	svg.append("line")
+	        .attr("x1", 0)
+	        .attr("x2", 0)
+	        .attr("y1", -radius+(Math.min(width, height)*.1))
+	        .attr("y2", -radius+10)
+	        .attr("stroke", "#b3b3b3")
+	        .attr("transform", function(d) {
+	         return "rotate(" + <?php echo($this->q4SurveyAngle);?>*t * (180/Math.PI) + ")";
+	        });
+	    }, 1600);   
+
+	    setTimeout(function(){
+		    svg.append("text")
+	        .style("font-size","24px")
+	        .style("fill","#b3b3b3")		    
+		   .attr("class", "value")
+		   .attr("transform", function(d) {
+			   var dist=radius-5;
+			   var winkel=<?php echo($this->q4SurveyAngle);?>*t;
+			   var x=dist*Math.sin(winkel);
+			   var y=-dist*Math.cos(winkel)-10;
+			   return "translate(" + x + "," + y + ")";
+	        })
+		    .attr("dy", "0.35em")
+	        //.attr("text-anchor", "middle")
+	        .attr("text-anchor", "middle")
+		    .text("<?php echo($this->q4MyPercent);?>%");
+	    }, 1600);
+	    	    
+	    setTimeout(function(){
+			svg.append("text")
+	        .style("font-size","14px")
+	        .style("fill","#fff")
+			.attr("x", 5)   //Move the text from the start angle of the arc
+			.attr("dy", 17) //Move the text down
+	        .append("textPath")
+	        .attr("xlink:href","#q4benchmark")
+	        .style("text-anchor","left") // using "end", the entire text disappears
+	        .text(" Industry Average");
+	    }, 1500);
+
+	    changeTopText(newText = "<?php echo($this->q4Analysis1_1);?>",
+				loc = 8/2, delayDisappear = 0, delayAppear = 3, finalText = true);
+		
+		changeMiddleText(newText = "<?php echo($this->q4Analysis1_2);?>",
+				loc = -2/2, delayDisappear = 0, delayAppear = 3, classname="explanationbold");
+					
+		changeBottomText(newText = "<?php echo($this->q4Analysis1_3);?>",
+				loc = 4/2, delayDisappear = 0, delayAppear = 5, classname="explanation");	
+
+	} else if (counter == 6) {
+
+		stopClicker(1000);
+		
+<?php 	if (empty($this->q3Analysis2)) { ?>
+				
+	    changeTopText(newText = "<?php echo($this->q4Analysis2);?>",
+				loc = 8/2, delayDisappear = 0, delayAppear = 1, finalText = true);
+		
+		changeMiddleText(newText = "",
+				loc = -4/2, delayDisappear = 0, delayAppear = 1, classname="explanationbold");
+					
+		changeBottomText(newText = "",
+				loc = -8/2, delayDisappear = 0, delayAppear = 2, classname="explanation");
+<?php		} else { ?>	
+		changeTopText(newText = "<?php echo($this->q4Analysis2);?>",
+				loc = 8/2, delayDisappear = 0, delayAppear = 2, finalText = true);
+		
+		changeMiddleText(newText = "",
+				loc = -4/2, delayDisappear = 0, delayAppear = 3, classname="explanationbold");
+					
+		changeBottomText(newText = "",
+				loc = 2/2, delayDisappear = 0, delayAppear = 5, classname="explanation");		
+<?php } ?>
+		
+	} else if (counter == 8) {
+		$("#info_popup").dialog("open");
+		counter = counter - 1;
+	}
+	
+	counter = counter + 1;
+	
+	d3.select("#clicker").text(buttonTexts[counter-2]);
+});
+
+//Wraps SVG text*/
+function wrap(text, width) {
+    var text = d3.select(this[0][0]),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.4, 
+        y = text.attr("y"),
+		x = text.attr("x"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
+		
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+      };
+    };  
+};
+
+/*Transition the top circle text*/
+function changeTopText (newText, loc, delayDisappear, delayAppear, finalText, xloc, w) {
+
+	/*If finalText is not provided, it is not the last text of the Draw step*/
+	if(typeof(finalText)==='undefined') finalText = false;
+	
+	if(typeof(xloc)==='undefined') xloc = 0;
+	if(typeof(w)==='undefined') w = 280;
+	
+	middleTextTop	
+		/*Current text disappear*/
+		.transition().delay(700 * delayDisappear).duration(700)
+		.attr('opacity', 0)	
+		/*New text appear*/
+		.call(endall,  function() {
+			middleTextTop.text(newText)
+			.attr("y", -24*loc + "px")
+			.attr("x", xloc + "px")
+			.call(wrap, w);	
+		})
+		.transition().delay(700 * delayAppear).duration(700)
+		.attr('opacity', 1)
+		.call(endall,  function() {
+			if (finalText == true) {
+				d3.select("#clicker")
+					.text(buttonTexts[counter-2])
+					.style("pointer-events", "auto")
+					.transition().duration(400)
+					.style("border-color", "#363636")
+					.style("color", "#363636");
+				};
+		});
+}/*changeTopText */
+
+/*Transition the bottom circle text*/
+function changeMiddleText (newText, loc, delayDisappear, delayAppear, classname) {
+	middleTextMiddle
+		/*Current text disappear*/
+		
+		.transition().delay(700 * delayDisappear).duration(700)
+		.attr('opacity', 0)
+		/*New text appear*/
+		.call(endall,  function() {
+			middleTextMiddle.text(newText)
+			.attr("class", classname)
+			.attr("y", 24*loc + "px")
+			.call(wrap, 300);	
+		})
+		.transition().delay(700 * delayAppear).duration(700)
+		//.attr("class", classname)
+		.attr('opacity', 1);
+}/*changeTopText*/
+
+/*Transition the bottom circle text*/
+function changeBottomText (newText, loc, delayDisappear, delayAppear, classname) {
+	middleTextBottom
+		/*Current text disappear*/
+		
+		.transition().delay(700 * delayDisappear).duration(700)
+		.attr('opacity', 0)
+		/*New text appear*/
+		.call(endall,  function() {
+			middleTextBottom.text(newText)
+			.attr("class", classname)
+			.attr("y", 24*loc + "px")
+			.call(wrap, 300);	
+		})
+		.transition().delay(700 * delayAppear).duration(700)
+		//.attr("class", classname)
+		.attr('opacity', 1);
+}/*changeTopText*/
+
+function endall(transition, callback) { 
+    var n = 0; 
+    transition 
+        .each(function() { ++n; }) 
+        .each("end", function() { if (!--n) callback.apply(this, arguments); }); 
+}/*endall*/ 
+
+function stopClicker(stopDuration) {
+	d3.select("#clicker")
+		.style("pointer-events", "none")
+		.transition().duration(700)
+		.style("border-color", "#D3D3D3")
+		.style("color", "#D3D3D3");
+};
+
+function validateData()
+{
+	if ($('input[name="first_name"]').val() == 0 ||
+			$('input[name="company_name"]').val() == 0 ||
+			$('input[name="job_title"]').val() == 0 ||
+			$('input[name="last_name"]').val() == 0) {
+		$("#incomplete_error").dialog("open");
+		return false;
+	}
+
+	return true;	
+}
+
+</script>
+
+<!-- Popup form -->	
+  <div id="info_popup" class="infowindow">
+    <form action="/summary" method="post">
+    <input type="hidden" id="q0_hidden" name="q0" value="<?php echo($this->surveyId);?>">
+    <input type="hidden" id="q1_hidden" name="q1" value="<?php echo($this->q1Answer);?>">
+    <input type="hidden" id="q2_hidden" name="q2" value="<?php echo($this->q2Answer);?>">
+    <input type="hidden" id="q31_hidden" name="q3_1" value="<?php echo($this->q31Answer);?>">
+    <input type="hidden" id="q32_hidden" name="q3_2" value="<?php echo($this->q32Answer);?>">
+    <input type="hidden" id="q33_hidden" name="q3_3" value="<?php echo($this->q33Answer);?>">
+    <input type="hidden" id="q34_hidden" name="q3_4" value="<?php echo($this->q34Answer);?>">
+    <input type="hidden" id="q35_hidden" name="q3_5" value="<?php echo($this->q35Answer);?>">
+    <input type="hidden" id="q41_hidden" name="q4_1" value="<?php echo($this->q41Answer);?>">
+    <input type="hidden" id="q42_hidden" name="q4_2" value="<?php echo($this->q42Answer);?>">
+    <input type="hidden" id="q43_hidden" name="q4_3" value="<?php echo($this->q43Answer);?>">
+    <input type="hidden" id="q44_hidden" name="q4_4" value="<?php echo($this->q44Answer);?>">
+    <input type="hidden" id="q45_hidden" name="q4_5" value="<?php echo($this->q45Answer);?>">
+
+    <center>
+    <table>
+    	<tr>
+    		<td>
+			    <div class="infoform">
+			    	<div class="selectionform">
+				    <label>First Name *</label>
+					<input type="text" name="first_name" style="width: 200px">
+					</div>
+					<div class="selectionform">
+				    <label>Company Name *</label>
+					<input type="text" name="company_name" style="width: 200px">
+				    </div>
+					<div class="selectionform">		
+				    <label>Job Title *</label>
+					<input type="text" name="job_title" style="width: 200px">
+					</div> 
+				</div>      		
+    		</td>
+    		<td style="padding-left:20px;">
+			    <div class="infoform">
+			    	<div class="selectionform">
+				    <label>Last Name *</label>
+					<input type="text" name="last_name" style="width: 200px">
+					</div>
+					<div class="selectionform">
+				    <label>Phone</label>
+					<input type="text" name="phone" style="width: 200px">
+					</div>
+					<div class="selectionform">		
+				    <label>State/Province Territory *</label>
+				    <select name="state" style="width: 200px">
+					  <option value="us">US</option>
+					  <option value="emea">EMEA</option>
+					  <option value="apac">APAC</option>
+					</select>
+					</div> 
+				</div>      		
+    		</td>
+    	</tr>
+    </table>
+    </center>
+
+
+	<div class="submitcontent"><input type="submit" class="imagebtn-sm" value="SUBMIT" onClick="validateData();"></div>
+	
+	</form>
+  </div>
+<!-- Popup form ends-->
+  
+	<div id="incomplete_error" class="error-msg">
+	<span>There is a missing value in required field.</span>
+	</div>
+	  
+</body>
+</html>

@@ -1,0 +1,44 @@
+<script> 
+	Ext.BLANK_IMAGE_URL = "/images/s.gif";
+
+	Ext.onReady(function(){
+		Ext.QuickTips.init();
+         	
+		new Ext.Viewport({
+			layout: 'border',
+			title: 'CAPITAL BUDGETING TOOL',
+			items: [{
+				region: 'north',
+				border: false,
+				layout: 'column',
+				margins: '0 0 0 0',
+				height: 80,
+				items: [{
+					html: '<div style="background-color:#092A5E; background-image:url(/images/source_header3.gif); background-repeat: no-repeat; background-position:right;"><img src="/images/capex_title.jpg" align="absmiddle"></div>',
+					columnWidth: 1, 
+					border:false, 
+					bodyStyle: 'padding-left: 0px; line-height:30px; background: transparent'
+				}]
+
+			}, {
+				region:'center',
+				closable: false,
+				border: false,   
+				bodyStyle: 'padding:100px 0;',
+				items: new Ext.Panel({
+					layout: 'ux.center',    
+					border: false,
+					items: [{
+							xtype:'reportloginform',
+                            login_type:'new'
+                    }]
+                })
+			}],
+			
+			renderTo: Ext.getBody()
+		});
+
+
+	});
+  
+</script>

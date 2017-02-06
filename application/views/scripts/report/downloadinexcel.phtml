@@ -1,0 +1,11 @@
+<?php
+//  $this->jsonResponse($this);
+
+  $zcrh = new Zend_Controller_Response_Http();
+  $zcrh->setHeader("Cache-Control", "max-age=0", true);
+  $zcrh->setHeader("Pragma", "public", true);
+  $zcrh->setHeader("Content-Disposition", "attachment;filename=".$this->filename.".xlsx", true);
+  $zcrh->setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", true);
+  $zcrh->sendHeaders();
+
+  echo $this->excelcontent;

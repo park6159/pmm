@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Personalization Survey</title>
+	<meta charset="utf-8" />	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+			
+    <!-- CSS -->	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="/jquery-ui.css">
+	<link rel="stylesheet" href="/css/survey-style.css" type="text/css">  
+	<link rel="stylesheet" href="/noUiSlider/nouislider.css">
+	<link rel="stylesheet" href="/noUiSlider/nouislider.pips.css">
+    
+    <!-- JS -->    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/jquery-ui.js"></script>	
+	<script src="/getUrlParam.js"></script>
+	<script src="/noUiSlider/nouislider.js"></script>	
+
+	
+<script type="text/javascript">
+
+
+var q2Click = 0;
+
+var dashboardClick = 0;
+var webClick = 0;
+var textClick = 0;
+var predictiveClick = 0;
+var locationClick = 0;
+
+var emailClick = 0;
+var onlineClick = 0;
+var mobileClick = 0;
+var callcenterClick = 0;
+var storeClick = 0;
+
+$("document").ready(function() {
+
+	$('#info_popup').dialog( { 
+		autoOpen: false,
+		width:420,
+		modal: true		
+	});
+
+	$('#q2_error').dialog( { 
+		autoOpen: false,
+		width:420,
+		modal: true,
+		buttons: [
+		            {
+		              text: "OK",
+		              click: function() {
+		                $( this ).dialog( "close" );
+		              }
+		            }
+		          ]	
+	});
+
+	$('#q3_error').dialog( { 
+		autoOpen: false,
+		width:420,
+		modal: true,
+		buttons: [
+		            {
+		              text: "OK",
+		              click: function() {
+		                $( this ).dialog( "close" );
+		              }
+		            }
+		          ]	
+	});
+
+	$('#q4_error').dialog( { 
+		autoOpen: false,
+		width:420,
+		modal: true,
+		buttons: [
+		            {
+		              text: "OK",
+		              click: function() {
+		                $( this ).dialog( "close" );
+		              }
+		            }
+		          ]	
+	});
+    
+	var q1Slider = document.getElementById('q1_slider');
+	var q1Result = document.getElementById('q1_result');
+
+	var range_all_sliders = {
+			'min': [ 0 ],						
+			'max': [ 50 ]
+	};
+	
+	noUiSlider.create(q1Slider, {
+		range: range_all_sliders,
+		start: 0,
+		connect: "lower",
+		pips: {
+			mode: 'values',
+			values: [0, 10, 20, 30, 40, 50],
+			density: 50
+	}
+	});
+
+	q1Slider.noUiSlider.on('update', function( values, handle ){
+		q1Result.innerHTML = Math.round(values[handle]);
+		$('#q1_hidden').val(Math.round(values[handle]));
+	});
+
+	$('#q1_hidden').val(0);
+	$('#q2_hidden').val(q2Click);
+	$('#q31_hidden').val(dashboardClick);
+	$('#q32_hidden').val(webClick);
+	$('#q33_hidden').val(textClick);
+	$('#q34_hidden').val(predictiveClick);
+	$('#q35_hidden').val(locationClick);
+	$('#q41_hidden').val(emailClick);
+	$('#q42_hidden').val(onlineClick);
+	$('#q43_hidden').val(mobileClick);
+	$('#q44_hidden').val(callcenterClick);
+	$('#q45_hidden').val(storeClick);
+	var param = $(document).getUrlParam("code"); 
+	$('#url_hidden').val(param);
+	
+	function clearMatrixRow(oldClick, rowId, qId)
+	{
+		if (oldClick != 0) {
+			var classToRemove = "q"+qId+"matrix"+oldClick+"hover";
+
+			for (var i=0; i < oldClick+1; i++) {
+				var cellId = "#"+rowId+i;
+				$(cellId).removeClass(classToRemove);
+			}
+			$(cellId).html("");			
+		}	
+	}
+
+	function markMatrixRow(newClick, rowId, qId)
+	{
+		if (qId == 3) {
+			var cellValue = ['<div class="selectionTd">Don\'t Know</div>',
+				     		 '<div class="selectionTd">Not Interested</div>', 
+			                 '<div class="selectionTd">Interested,<br> but not a priority</div>', 
+			                 '<div class="selectionTd">Implementing<br> in the next 12 mos</div>', 
+			                 '<div class="selectionTd">Implemented</div>'];
+             
+		} else if (qId == 4) {
+			var cellValue = ['<div class="selectionTd">Don\'t Know</div>',
+				     		 '<div class="selectionTd">Don\'t have it,<br>have no plans</div>', 
+			                 '<div class="selectionTd">Don\'t have it,<br>but have plans</div>', 
+			                 '<div class="selectionTd">Have limited<br>capability</div>', 
+			                 '<div class="selectionTd">Full capability</div>'];
+		}
+
+		if (newClick != 0) {
+			var classToAdd = "q"+qId+"matrix"+newClick+"hover";
+
+			for (var i=0; i < newClick+1; i++) {
+				var cellId = "#"+rowId+i;
+				$(cellId).addClass(classToAdd);
+			}
+			
+			$(cellId).html(cellValue[i-2]);			
+		}		
+	}
+
+	
+
+	
+	$("#q2_1").click(function(e){
+		$("#q2_"+q2Click).removeClass('q2selectionhover');
+		$("#q2check_"+q2Click).removeClass('q2checkhover');		
+		
+		$("#q2_1").addClass('q2selectionhover');  
+		$("#q2check_1").addClass('q2checkhover');
+		  	    	    	    	       	    	    	    
+		q2Click = 1;
+		$('#q2_hidden').val(q2Click);
+	});
+
+	$("#q2_2").click(function(e){
+		$("#q2_"+q2Click).removeClass('q2selectionhover');
+		$("#q2check_"+q2Click).removeClass('q2checkhover');		
+		
+		$("#q2_2").addClass('q2selectionhover');  
+		$("#q2check_2").addClass('q2checkhover');  	    	    	    	       	    	    	    
+		q2Click = 2;
+		$('#q2_hidden').val(q2Click);
+	});
+
+	$("#q2_3").click(function(e){
+		$("#q2_"+q2Click).removeClass('q2selectionhover');
+		$("#q2check_"+q2Click).removeClass('q2checkhover');		
+		
+		$("#q2_3").addClass('q2selectionhover');  
+		$("#q2check_3").addClass('q2checkhover');    	    	    	    	       	    	    	    
+		q2Click = 3;
+		$('#q2_hidden').val(q2Click);
+	});
+
+	$("#q2_4").click(function(e){
+		$("#q2_"+q2Click).removeClass('q2selectionhover');
+		$("#q2check_"+q2Click).removeClass('q2checkhover');		
+		
+		$("#q2_4").addClass('q2selectionhover');  
+		$("#q2check_4").addClass('q2checkhover');   	    	    	    	       	    	    	    
+		q2Click = 4;
+		$('#q2_hidden').val(q2Click);
+	});
+
+	$("#q2_5").click(function(e){
+		$("#q2_"+q2Click).removeClass('q2selectionhover');
+		$("#q2check_"+q2Click).removeClass('q2checkhover');		
+		
+		$("#q2_5").addClass('q2selectionhover');  
+		$("#q2check_5").addClass('q2checkhover');   	    	    	    	       	    	    	    
+		q2Click = 5;
+		$('#q2_hidden').val(q2Click);
+	});	
+
+	$("#q2_6").click(function(e){
+		$("#q2_"+q2Click).removeClass('q2selectionhover');
+		$("#q2check_"+q2Click).removeClass('q2checkhover');		
+		
+		$("#q2_6").addClass('q2selectionhover');  
+		$("#q2check_6").addClass('q2checkhover');    	    	    	    	       	    	    	    
+		q2Click = 6;
+		$('#q2_hidden').val(q2Click);
+	});		
+	
+	
+	
+	$("#dashboard1").click(function(e){
+		clearMatrixRow(dashboardClick, 'dashboard', 3);	
+		markMatrixRow(1, 'dashboard', 3);	    	    	    	    	       	    	    	    
+	    dashboardClick = 1;
+	    $('#q31_hidden').val(dashboardClick);
+	});
+	
+	$("#dashboard2").click(function(e){
+		clearMatrixRow(dashboardClick, 'dashboard', 3);	
+		markMatrixRow(2, 'dashboard', 3);	    	    	    	    	       	    	    	    
+	    dashboardClick = 2;
+	    $('#q31_hidden').val(dashboardClick);
+	});
+	
+	$("#dashboard3").click(function(e){
+		clearMatrixRow(dashboardClick, 'dashboard', 3);	
+		markMatrixRow(3, 'dashboard', 3);	    	    	    	    	       	    	    	    
+	    dashboardClick = 3;
+	    $('#q31_hidden').val(dashboardClick);
+	});
+	
+	$("#dashboard4").click(function(e){
+		clearMatrixRow(dashboardClick, 'dashboard', 3);	
+		markMatrixRow(4, 'dashboard', 3);	    	    	    	    	       	    	    	    
+	    dashboardClick = 4;
+	    $('#q31_hidden').val(dashboardClick);
+	});
+	
+	$("#dashboard5").click(function(e){
+		clearMatrixRow(dashboardClick, 'dashboard', 3);	
+		markMatrixRow(5, 'dashboard', 3);	    	    	    	    	       	    	    	    
+	    dashboardClick = 5;
+	    $('#q31_hidden').val(dashboardClick);
+	});		
+	
+	$("#web1").click(function(e){
+		clearMatrixRow(webClick, 'web', 3);	
+		markMatrixRow(1, 'web', 3);	    	    	    	    	       	    	    	    
+	    webClick = 1;
+	    $('#q32_hidden').val(webClick);
+	});
+	
+	$("#web2").click(function(e){
+		clearMatrixRow(webClick, 'web', 3);	
+		markMatrixRow(2, 'web', 3);	    	    	    	    	       	    	    	    
+	    webClick = 2;
+	    $('#q32_hidden').val(webClick);
+	});
+	
+	$("#web3").click(function(e){
+		clearMatrixRow(webClick, 'web', 3);	
+		markMatrixRow(3, 'web', 3);	    	    	    	    	       	    	    	    
+	    webClick = 3;
+	    $('#q32_hidden').val(webClick);
+	});
+	
+	$("#web4").click(function(e){
+		clearMatrixRow(webClick, 'web', 3);	
+		markMatrixRow(4, 'web', 3);	    	    	    	    	       	    	    	    
+	    webClick = 4;
+	    $('#q32_hidden').val(webClick);	    
+	});
+	
+	$("#web5").click(function(e){
+		clearMatrixRow(webClick, 'web', 3);	
+		markMatrixRow(5, 'web', 3);	    	    	    	    	       	    	    	    
+	    webClick = 5;
+	    $('#q32_hidden').val(webClick);	    
+	});	
+
+	
+	$("#text1").click(function(e){
+		clearMatrixRow(textClick, 'text', 3);	
+		markMatrixRow(1, 'text', 3);	    	    	    	    	       	    	    	    
+	    textClick = 1;
+	    $('#q33_hidden').val(textClick);	    
+	});
+	
+	$("#text2").click(function(e){
+		clearMatrixRow(textClick, 'text', 3);	
+		markMatrixRow(2, 'text', 3);	    	    	    	    	       	    	    	    
+	    textClick = 2;
+	    $('#q33_hidden').val(textClick);	    
+	});
+	
+	$("#text3").click(function(e){
+		clearMatrixRow(textClick, 'text', 3);	
+		markMatrixRow(3, 'text', 3);	    	    	    	    	       	    	    	    
+	    textClick = 3;
+	    $('#q33_hidden').val(textClick);	    
+	});
+	
+	$("#text4").click(function(e){
+		clearMatrixRow(textClick, 'text', 3);	
+		markMatrixRow(4, 'text', 3);	    	    	    	    	       	    	    	    
+	    textClick = 4;
+	    $('#q33_hidden').val(textClick);	    
+	});
+	
+	$("#text5").click(function(e){
+		clearMatrixRow(textClick, 'text', 3);	
+		markMatrixRow(5, 'text', 3);	    	    	    	    	       	    	    	    
+	    textClick = 5;
+	    $('#q33_hidden').val(textClick);	    
+	});		
+
+	$("#predictive1").click(function(e){
+		clearMatrixRow(predictiveClick, 'predictive', 3);	
+		markMatrixRow(1, 'predictive', 3);	    	    	    	    	       	    	    	    
+	    predictiveClick = 1;
+	    $('#q34_hidden').val(predictiveClick);
+	});
+	
+	$("#predictive2").click(function(e){
+		clearMatrixRow(predictiveClick, 'predictive', 3);	
+		markMatrixRow(2, 'predictive', 3);	    	    	    	    	       	    	    	    
+	    predictiveClick = 2;
+	    $('#q34_hidden').val(predictiveClick);	    
+	});
+	
+	$("#predictive3").click(function(e){
+		clearMatrixRow(predictiveClick, 'predictive', 3);	
+		markMatrixRow(3, 'predictive', 3);	    	    	    	    	       	    	    	    
+	    predictiveClick = 3;
+	    $('#q34_hidden').val(predictiveClick);	    
+	});
+	
+	$("#predictive4").click(function(e){
+		clearMatrixRow(predictiveClick, 'predictive', 3);	
+		markMatrixRow(4, 'predictive', 3);	    	    	    	    	       	    	    	    
+	    predictiveClick = 4;
+	    $('#q34_hidden').val(predictiveClick);	    
+	});
+	
+	$("#predictive5").click(function(e){
+		clearMatrixRow(predictiveClick, 'predictive', 3);	
+		markMatrixRow(5, 'predictive', 3);	    	    	    	    	       	    	    	    
+	    predictiveClick = 5;
+	    $('#q34_hidden').val(predictiveClick);	    
+	});	
+
+	$("#location1").click(function(e){
+		clearMatrixRow(locationClick, 'location', 3);	
+		markMatrixRow(1, 'location', 3);	    	    	    	    	       	    	    	    
+	    locationClick = 1;
+	    $('#q35_hidden').val(locationClick);	    
+	});
+	
+	$("#location2").click(function(e){
+		clearMatrixRow(locationClick, 'location', 3);	
+		markMatrixRow(2, 'location', 3);	    	    	    	    	       	    	    	    
+	    locationClick = 2;
+	    $('#q35_hidden').val(locationClick);	    
+	});
+	
+	$("#location3").click(function(e){
+		clearMatrixRow(locationClick, 'location', 3);	
+		markMatrixRow(3, 'location', 3);	    	    	    	    	       	    	    	    
+	    locationClick = 3;
+	    $('#q35_hidden').val(locationClick);	    
+	});
+	
+	$("#location4").click(function(e){
+		clearMatrixRow(locationClick, 'location', 3);	
+		markMatrixRow(4, 'location', 3);	    	    	    	    	       	    	    	    
+	    locationClick = 4;
+	    $('#q35_hidden').val(locationClick);	    
+	});
+	
+	$("#location5").click(function(e){
+		clearMatrixRow(locationClick, 'location', 3);	
+		markMatrixRow(5, 'location', 3);	    	    	    	    	       	    	    	    
+	    locationClick = 5;
+	    $('#q35_hidden').val(locationClick);	    
+	});			
+
+	$("#email1").click(function(e){
+		clearMatrixRow(emailClick, 'email', 4);	
+		markMatrixRow(1, 'email', 4);	    	    	    	    	       	    	    	    
+	    emailClick = 1;
+	    $('#q41_hidden').val(emailClick);	    
+	});
+	
+	$("#email2").click(function(e){
+		clearMatrixRow(emailClick, 'email', 4);	
+		markMatrixRow(2, 'email', 4);	    	    	    	    	       	    	    	    
+	    emailClick = 2;
+	    $('#q41_hidden').val(emailClick);	    
+	});
+	
+	$("#email3").click(function(e){
+		clearMatrixRow(emailClick, 'email', 4);	
+		markMatrixRow(3, 'email', 4);	    	    	    	    	       	    	    	    
+	    emailClick = 3;
+	    $('#q41_hidden').val(emailClick);	    
+	});
+	
+	$("#email4").click(function(e){
+		clearMatrixRow(emailClick, 'email', 4);	
+		markMatrixRow(4, 'email', 4);	    	    	    	    	       	    	    	    
+	    emailClick = 4;
+	    $('#q41_hidden').val(emailClick);	    
+	});
+	
+	$("#email5").click(function(e){
+		clearMatrixRow(emailClick, 'email', 4);	
+		markMatrixRow(5, 'email', 4);	    	    	    	    	       	    	    	    
+	    emailClick = 5;
+	    $('#q41_hidden').val(emailClick);	    
+	});		
+	
+	$("#online1").click(function(e){
+		clearMatrixRow(onlineClick, 'online', 4);	
+		markMatrixRow(1, 'online', 4);	    	    	    	    	       	    	    	    
+	    onlineClick = 1;
+	    $('#q42_hidden').val(onlineClick);	    
+	});
+	
+	$("#online2").click(function(e){
+		clearMatrixRow(onlineClick, 'online', 4);	
+		markMatrixRow(2, 'online', 4);	    	    	    	    	       	    	    	    
+	    onlineClick = 2;
+	    $('#q42_hidden').val(onlineClick);	    
+	});
+	
+	$("#online3").click(function(e){
+		clearMatrixRow(onlineClick, 'online', 4);	
+		markMatrixRow(3, 'online', 4);	    	    	    	    	       	    	    	    
+	    onlineClick = 3;
+	    $('#q42_hidden').val(onlineClick);	    
+	});
+	
+	$("#online4").click(function(e){
+		clearMatrixRow(onlineClick, 'online', 4);	
+		markMatrixRow(4, 'online', 4);	    	    	    	    	       	    	    	    
+	    onlineClick = 4;
+	    $('#q42_hidden').val(onlineClick);	    
+	});
+	
+	$("#online5").click(function(e){
+		clearMatrixRow(onlineClick, 'online', 4);	
+		markMatrixRow(5, 'online', 4);	    	    	    	    	       	    	    	    
+	    onlineClick = 5;
+	    $('#q42_hidden').val(onlineClick);	    
+	});	
+
+	
+	$("#mobile1").click(function(e){
+		clearMatrixRow(mobileClick, 'mobile', 4);	
+		markMatrixRow(1, 'mobile', 4);	    	    	    	    	       	    	    	    
+	    mobileClick = 1;
+	    $('#q43_hidden').val(mobileClick);	    
+	});
+	
+	$("#mobile2").click(function(e){
+		clearMatrixRow(mobileClick, 'mobile', 4);	
+		markMatrixRow(2, 'mobile', 4);	    	    	    	    	       	    	    	    
+	    mobileClick = 2;
+	    $('#q43_hidden').val(mobileClick);	    
+	});
+	
+	$("#mobile3").click(function(e){
+		clearMatrixRow(mobileClick, 'mobile', 4);	
+		markMatrixRow(3, 'mobile', 4);	    	    	    	    	       	    	    	    
+	    mobileClick = 3;
+	    $('#q43_hidden').val(mobileClick);	    
+	});
+	
+	$("#mobile4").click(function(e){
+		clearMatrixRow(mobileClick, 'mobile', 4);	
+		markMatrixRow(4, 'mobile', 4);	    	    	    	    	       	    	    	    
+	    mobileClick = 4;
+	    $('#q43_hidden').val(mobileClick);	    
+	});
+	
+	$("#mobile5").click(function(e){
+		clearMatrixRow(mobileClick, 'mobile', 4);	
+		markMatrixRow(5, 'mobile', 4);	    	    	    	    	       	    	    	    
+	    mobileClick = 5;
+	    $('#q43_hidden').val(mobileClick);	    
+	});		
+
+	$("#callcenter1").click(function(e){
+		clearMatrixRow(callcenterClick, 'callcenter', 4);	
+		markMatrixRow(1, 'callcenter', 4);	    	    	    	    	       	    	    	    
+	    callcenterClick = 1;
+	    $('#q44_hidden').val(callcenterClick);	    
+	});
+	
+	$("#callcenter2").click(function(e){
+		clearMatrixRow(callcenterClick, 'callcenter', 4);	
+		markMatrixRow(2, 'callcenter', 4);	    	    	    	    	       	    	    	    
+	    callcenterClick = 2;
+	    $('#q44_hidden').val(callcenterClick);	    
+	});
+	
+	$("#callcenter3").click(function(e){
+		clearMatrixRow(callcenterClick, 'callcenter', 4);	
+		markMatrixRow(3, 'callcenter', 4);	    	    	    	    	       	    	    	    
+	    callcenterClick = 3;
+	    $('#q44_hidden').val(callcenterClick);	    
+	});
+	
+	$("#callcenter4").click(function(e){
+		clearMatrixRow(callcenterClick, 'callcenter', 4);	
+		markMatrixRow(4, 'callcenter', 4);	    	    	    	    	       	    	    	    
+	    callcenterClick = 4;
+	    $('#q44_hidden').val(callcenterClick);	    
+	});
+	
+	$("#callcenter5").click(function(e){
+		clearMatrixRow(callcenterClick, 'callcenter', 4);	
+		markMatrixRow(5, 'callcenter', 4);	    	    	    	    	       	    	    	    
+	    callcenterClick = 5;
+	    $('#q44_hidden').val(callcenterClick);	    
+	});	
+
+	$("#store1").click(function(e){
+		clearMatrixRow(storeClick, 'store', 4);	
+		markMatrixRow(1, 'store', 4);	    	    	    	    	       	    	    	    
+	    storeClick = 1;
+	    $('#q45_hidden').val(storeClick);	    
+	});
+	
+	$("#store2").click(function(e){
+		clearMatrixRow(storeClick, 'store', 4);	
+		markMatrixRow(2, 'store', 4);	    	    	    	    	       	    	    	    
+	    storeClick = 2;
+	    $('#q45_hidden').val(storeClick);	    
+	});
+	
+	$("#store3").click(function(e){
+		clearMatrixRow(storeClick, 'store', 4);	
+		markMatrixRow(3, 'store', 4);	    	    	    	    	       	    	    	    
+	    storeClick = 3;
+	    $('#q45_hidden').val(storeClick);	    
+	});
+	
+	$("#store4").click(function(e){
+		clearMatrixRow(storeClick, 'store', 4);	
+		markMatrixRow(4, 'store', 4);	    	    	    	    	       	    	    	    
+	    storeClick = 4;
+	    $('#q45_hidden').val(storeClick);	    
+	});
+	
+	$("#store5").click(function(e){
+		clearMatrixRow(storeClick, 'store', 4);	
+		markMatrixRow(5, 'store', 4);	    	    	    	    	       	    	    	    
+	    storeClick = 5;
+	    $('#q45_hidden').val(storeClick);	    
+	});	
+
+
+	
+
+	
+}); 
+
+function validateData()
+{
+	if (q2Click == 0) {
+		$("#q2_error").dialog("open");
+		return false;
+	} else if (dashboardClick == 0 || webClick == 0 || textClick == 0 || predictiveClick == 0 || locationClick == 0) {
+		$("#q3_error").dialog("open");
+		return false;
+	} else if (emailClick == 0 || onlineClick == 0 || mobileClick == 0 || callcenterClick == 0 || storeClick == 0) {
+		$("#q4_error").dialog("open");
+		return false;
+	} else {
+		$("#info_popup").dialog("open");
+		return false;
+	}		
+}
+
+</script>
+</head>
+
+<body class="body">
+		
+	<div class="mainContent">	
+				<div class="topcontent">
+					<div class="surveytitle">Personalization Survey</div>
+					<div class="q1title">Question 1 of 4</div>	
+					<div class="q1content">
+						<h2>How many systems are used to capture<br> customer data?<br>&nbsp;<br>&nbsp;</h2>
+						<div class="q1slider" id="q1_slider"></div><div class="q1sliderresult" id="q1_result"></div><div class="totalsystems">TOTAL SYSTEMS</div>
+					</div>
+				</div>
+				<div class="midcontent">
+					<div class="qtitle">Question 2 of 4</div>	
+					<div class="qcontent">What is your current strategy to have a single customer database?</div>	
+						<table class="selectionTable">
+							<tr>
+								<td id="q2_1" class="qlabel">Already implemented a single customer database</td><td id="q2check_1" width="60">&nbsp;</td>
+							</tr>						
+							<tr>
+								<td id="q2_2" class="qlabel">Currently implementing plans to create a single customer database</td><td id="q2check_2" width="60">&nbsp;</td>
+							</tr>
+							<tr>
+								<td id="q2_3" class="qlabel">Plans to implement in the next 12 month</td><td id="q2check_3" width="60">&nbsp</td>
+							</tr>
+							<tr>
+								<td id="q2_4" class="qlabel">Don't have enough organizational support to do so</td><td id="q2check_4" width="60">&nbsp</td>
+							</tr>
+							<tr>
+								<td id="q2_5" class="qlabel">Have not considered moving to a single customer database</td><td id="q2check_5" width="60">&nbsp</td>						
+							</tr>
+							<tr>
+								<td id="q2_6" class="qlabel">Don't know</td><td id="q2check_6" width="60">&nbsp</td>						
+							</tr>												
+						</table>
+					
+				</div>	
+				<div class="midcontent">
+					<div class="qtitle">Question 3 of 4</div>	
+					<div class="qcontent">What are your plans to use the following advanced analytics?</div>
+						<table class="gridTable">
+						<thead class="tableHead">
+						<tr>
+							<th width="138">&nbsp;</th>
+							<th>Don't Know</th>
+							<th>Not Interested</th>
+							<th>Interested, but<br> not a priority</th>
+							<th>Implementing in the next 12 mos </th>
+							<th>Implemented</th>	
+						</tr>
+						</thead>
+						<tr>
+							<td id="dashboard0" class="qlabel">Dashboard</td>
+							<td id="dashboard1">&nbsp;</td>
+							<td id="dashboard2">&nbsp;</td>
+							<td id="dashboard3">&nbsp;</td>
+							<td id="dashboard4">&nbsp;</td>	
+							<td id="dashboard5">&nbsp;</td>	
+						</tr>
+						<tr>
+							<td id="web0" class="qlabel">Web Analytics</td>
+							<td id="web1">&nbsp;</td>
+							<td id="web2">&nbsp;</td>
+							<td id="web3">&nbsp;</td>
+							<td id="web4">&nbsp;</td>	
+							<td id="web5">&nbsp;</td>	
+						</tr>
+						<tr>
+							<td id="text0" class="qlabel">Text Analytics</td>
+							<td id="text1">&nbsp;</td>
+							<td id="text2">&nbsp;</td>
+							<td id="text3">&nbsp;</td>
+							<td id="text4">&nbsp;</td>	
+							<td id="text5">&nbsp;</td>	
+						</tr>
+						<tr>
+							<td id="predictive0" class="qlabel">Predictive Analytics</td>
+							<td id="predictive1">&nbsp;</td>
+							<td id="predictive2">&nbsp;</td>
+							<td id="predictive3">&nbsp;</td>
+							<td id="predictive4">&nbsp;</td>	
+							<td id="predictive5">&nbsp;</td>	
+						</tr>		
+						<tr>
+							<td id="location0" class="qlabel">Location Analytics</td>
+							<td id="location1">&nbsp;</td>
+							<td id="location2">&nbsp;</td>
+							<td id="location3">&nbsp;</td>
+							<td id="location4">&nbsp;</td>	
+							<td id="location5">&nbsp;</td>	
+						</tr>													
+						</table>
+				</div>	
+				<div class="midcontent">
+					<div class="qtitle">Question 4 of 4</div>	
+					<div class="qcontent">For each of the customer interaction channels, rate your ability to understand customer intent and respond in real-time?</div>
+						<table class="gridTable">
+						<thead class="tableHead">
+						<tr>
+							<th width="130">&nbsp;</th>
+							<th>Don't Know</th>	
+							<th>Don't have it, <br>have no plans</th>
+							<th>Don't have it, <br>but have plans</th>
+							<th>Have limited<br>capability</th>
+							<th>Full capability</th>	
+						</tr>
+						</thead>
+						<tr>
+							<td id="email0" class="qlabel">Email</td>
+							<td id="email1">&nbsp;</td>
+							<td id="email2">&nbsp;</td>
+							<td id="email3">&nbsp;</td>
+							<td id="email4">&nbsp;</td>	
+							<td id="email5">&nbsp;</td>	
+						</tr>
+						<tr>
+							<td id="online0" class="qlabel">Online/Web</td>
+							<td id="online1">&nbsp;</td>
+							<td id="online2">&nbsp;</td>
+							<td id="online3">&nbsp;</td>
+							<td id="online4">&nbsp;</td>	
+							<td id="online5">&nbsp;</td>	
+						</tr>
+						<tr>
+							<td id="mobile0" class="qlabel">Mobile</td>
+							<td id="mobile1">&nbsp;</td>
+							<td id="mobile2">&nbsp;</td>
+							<td id="mobile3">&nbsp;</td>
+							<td id="mobile4">&nbsp;</td>	
+							<td id="mobile5">&nbsp;</td>	
+						</tr>
+						<tr>
+							<td id="callcenter0" class="qlabel">Call Center</td>
+							<td id="callcenter1">&nbsp;</td>
+							<td id="callcenter2">&nbsp;</td>
+							<td id="callcenter3">&nbsp;</td>
+							<td id="callcenter4">&nbsp;</td>	
+							<td id="callcenter5">&nbsp;</td>	
+						</tr>		
+						<tr>
+							<td id="store0" class="qlabel">In Store</td>
+							<td id="store1">&nbsp;</td>
+							<td id="store2">&nbsp;</td>
+							<td id="store3">&nbsp;</td>
+							<td id="store4">&nbsp;</td>	
+							<td id="store5">&nbsp;</td>	
+						</tr>													
+						</table>
+				</div>	
+				<div class="bottomcontent">
+					<div class="submitcontent">
+						<input type="submit" class="imagebtn" value="SUBMIT" onClick="validateData();">
+					</div>
+				</div>				
+	</div>
+	
+<!-- Popup form -->	
+  <div id="info_popup" class="infowindow">
+    <form action="/analysis" method="post">
+    <input type="hidden" id="q1_hidden" name="q1">
+    <input type="hidden" id="q2_hidden" name="q2">
+    <input type="hidden" id="q31_hidden" name="q3_1">
+    <input type="hidden" id="q32_hidden" name="q3_2">
+    <input type="hidden" id="q33_hidden" name="q3_3">
+    <input type="hidden" id="q34_hidden" name="q3_4">
+    <input type="hidden" id="q35_hidden" name="q3_5">
+    <input type="hidden" id="q41_hidden" name="q4_1">
+    <input type="hidden" id="q42_hidden" name="q4_2">
+    <input type="hidden" id="q43_hidden" name="q4_3">
+    <input type="hidden" id="q44_hidden" name="q4_4">
+    <input type="hidden" id="q45_hidden" name="q4_5">
+    <input type="hidden" id="url_hidden" name="code"> 
+
+    <div class="infoform">
+    	<div class="selectionform">
+	    <label>Business Model</label>
+		<select name="business_model" style="width: 300px">
+		  <option value="B2B">Busniess-to-business (B2B)</option>
+		  <option value="B2C">Business-to-consumer (B2C)</option>
+		  <option value="Both">Both B2B and B2C</option>
+		</select >
+		</div>
+		<div class="selectionform">
+	    <label>Size of the Company</label>
+		<select name="company_size" style="width: 300px">
+		  <option value="1 - 499">1 - 499 employees</option>
+		  <option value="500 - 4999">500 - 4999 employees</option>
+		  <option value="5000 or more">5000 or more employees</option>
+		</select>
+		</div>
+		<div class="selectionform">		
+	    <label>Region</label>
+	    <select name="region" style="width: 300px">
+		  <option value="us">North America</option>
+		  <option value="latin">Latin America</option>
+		  <option value="emea">EMEA</option>
+		  <option value="apac">APAC</option>
+		</select>
+		</div> 
+	</div>  
+
+	<div class="submitcontent"><input type="submit" class="imagebtn-sm" value="SUBMIT"></div>
+	
+	</form>
+  </div>
+<!-- Popup form ends-->
+    
+	<div id="q2_error" class="error-msg">
+	<span>Question 2 is incomplete.</span>
+	</div>
+	<div id="q3_error">
+	<span>Question 3 is incomplete.</span>
+	</div>
+	<div id="q4_error">
+	<span>Question 4 is incomplete.</span>
+	</div>
+</body>
+</html>

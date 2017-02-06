@@ -1,0 +1,86 @@
+<script type="text/javascript">
+
+Ext.onReady(function(){
+
+    Ext.QuickTips.init();
+
+    Ext.BLANK_IMAGE_URL = "/images/s.gif";
+
+    setTimeout(function(){
+        Ext.get('loading').remove();
+        Ext.get('loading-mask').fadeOut({remove:true});
+    }, 250);
+
+    Ext.EventManager.on(window, 'unload', function(){
+        delete EC;
+        delete El._flyweights;
+    });
+/*
+    Ext.Ajax.on('requestexception', function(conn, response, options, e) {
+        document.location.href = '/login/autologout';
+        delete options.failure;
+        delete options.callback;
+    });
+*/
+    var pane = new Ext.Panel({
+        border: true,
+        frame: true,
+        //layout: 'fit',
+        width: 810,
+        items: [{
+                xtype:'fieldset',
+                title: 'Search Filter Summary',
+                autoHeight:true,
+                items :[{
+                        xtype: 'panel',
+                        id: 'filtersummaryid',
+                        html: '<b>Employee selected:</b> None<p><b>Department selected:</b> None<p>'
+                }]
+                }, {
+                autoHeight: true,
+                layout:'column',
+                items: [{
+                        width:500,
+                        layout: 'form',
+                        xtype: 'etGrid',
+                        title: 'Select Employees',
+                        userId: '<?php echo($this->userId)?>',
+                        id: 'employee_tree_grid_id'
+                    }, {
+                        columnWidth:1,
+                        layout: 'form',
+                        xtype: 'dGrid',
+                        title: 'Select Departments',
+                        userId: '<?php echo($this->userId)?>',
+                        id: 'department_grid_id'
+                }]
+                }, {
+
+
+        }],
+        renderTo : 'search_filter_div'
+    });
+
+});
+
+</script>
+
+<div id="loading-mask"></div> 
+<div id="loading"> 
+    <div class="loading-indicator">
+        Loading...
+    </div>
+</div>
+
+<div id="container">
+	<div id="header">
+		<h1>
+			Employee Tree Grid
+		</h1>
+	</div>
+	<div id="content-container">
+		<div id="contentAll">
+				<div id="search_filter_div"></div>
+		</div>
+	</div>
+</div>

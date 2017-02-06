@@ -1,0 +1,32 @@
+Ext.define("Estore.model.SurveyResult", {
+    extend: 'Ext.data.Model',
+    fields: [
+              { name: 'responseid', type: 'int' },
+	          { name: 'ip_source', type: 'string' },
+	          { name: 'date_created', type: 'string' },
+	          { name: 'business_model', type: 'string' },	
+	          { name: 'company_size', type: 'string' },
+	          { name: 'region', type: 'string' },
+	          { name: 'q1', type: 'string' },
+	          { name: 'q2', type: 'string' },
+	          { name: 'q3_dashboard', type: 'string' },
+	          { name: 'q3_web', type: 'string' },
+	          { name: 'q3_text', type: 'string' },	          
+	          { name: 'q3_predictive', type: 'string' },
+	          { name: 'q3_location', type: 'string' },
+	          { name: 'q4_email', type: 'string' },
+	          { name: 'q4_online', type: 'string' },
+	          { name: 'q4_mobile', type: 'string' },
+	          { name: 'q4_callcenter', type: 'string' },
+	          { name: 'q4_store', type: 'string' },
+	          { name: 'first_name', type: 'string' },
+	          { name: 'last_name', type: 'string' },
+	          { name: 'email', type: 'string' },
+	          { name: 'company_name', type: 'string' },
+	          { name: 'job_title', type: 'string' },
+	          { name: 'phone', type: 'string' },
+	          { name: 'state', type: 'string' },	   
+	          { name: 'campaign_code', type: 'string' },
+	          { name: 'campaign_url', type: 'string' }	          
+             ]
+});

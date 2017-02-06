@@ -1,0 +1,113 @@
+<div style="background-color:#092A5E; background-image:url(/images/source_header3-1.gif); background-repeat: no-repeat; background-position:right;">
+	<img src="/images/capex_title.jpg" align="absmiddle">
+	<div style="position:absolute; top:30px; right:0; width:280px; font-weight:bolder;">
+		<font color=#FFFFE8>
+			<span class="userlink"><?php echo($this->userName) ?></span> &nbsp;&nbsp;
+			<span class="userlink">[<a href="/login/logoutprocess">Log out</a>]</span>
+			<span class="userlink">
+				[<a href="#" onclick="window.open('http://portal.sliderocket.com/vmware/CAPEX-Tool', 'mywindow','width=900,height=600,status=0,toolbar=0,location=0');">Tutorial</a>]
+			</span> &nbsp;
+			</font>
+	</div>
+</div>
+
+<div style="height:10;"></div>
+
+<div id="droplinetabs1" class="droplinetabs">
+	<ul>
+		<li><a href="/index"><span>HOME</span></a></li>
+		<li><a href="/entry"><span>YOUR ENTRIES</span></a></li>
+		<li><a href="/entries"><span>EDIT ENTRIES</span></a></li>
+		<li><a href="/report"><span>REPORTS</span></a></li>
+		<?php
+		if ($this->delegationFlag === 'Yes') {
+			echo('<li><a href="/delegate"><span>DELEGATION</span></a></li>');
+		}
+		?>
+	</ul>
+</div>
+
+<style type="text/css"> 
+	div#nifty{margin: 0 3%; background: #F0F0E7;}
+	/* style rows on mouseover */
+	.x-grid3-row-over .x-grid3-cell-inner {
+		font-weight: bold;
+	}
+</style>
+
+<script type="text/javascript">
+window.onload=function(){
+	if(!NiftyCheck())
+		return;
+	Rounded("div#nifty", "#FFFFFF", "#F0F0E7");
+}
+
+Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.BLANK_IMAGE_URL = "/images/s.gif";
+
+	setTimeout(function(){
+		Ext.get('loading').hide();
+		Ext.get('loading-mask').fadeOut({hide:true});
+	}, 250);
+
+	Ext.EventManager.on(window, 'unload', function(){
+		delete EC;
+		delete El._flyweights;
+	});
+
+	/*
+	Ext.Ajax.on('requestexception', function(conn, response, options, e) {
+		document.location.href = '/login/autologout';
+		delete options.failure;
+		delete options.callback;
+	});
+	*/
+
+	var pane = new Ext.Panel({
+		items: [{
+				scope: this,
+				xtype: 'rForm',
+				isManager: '<?php echo($this->isManager)?>',
+				isAdmin: '<?php echo($this->isAdmin)?>',
+				defaultFrom: "<?php echo($this->periodFrom)?>",
+				defaultTo: "<?php echo($this->periodTo)?>",
+				defaultFromRaw: "<?php echo($this->periodFromRaw)?>",
+				defaultToRaw: "<?php echo($this->periodToRaw)?>",
+				id: 'report_form_id'
+			}, {
+				scope: this,
+				style: {
+					marginBottom: '5px'
+				},
+				xtype: 'rGrid',
+				detailEditPermission: 0,
+				id: 'report_chart_grid',
+				isAdmin: '<?php echo($this->isAdmin)?>'
+		}],
+		renderTo : 'report_chart_div'
+	});
+	pane.findById('report_chart_grid').drawChart("/report/getreportxml");
+});
+</script>
+
+<div id="loading-mask"></div>
+
+<div id="loading"> 
+	<div class="loading-indicator" id="loading-text">
+		Loading...
+	</div>
+</div>
+
+<div id="container">
+	<div id="header">
+		<h1>Reports</h1>
+	</div>
+	<div id="content-container">
+		<div id="contentAll">
+			<div id="nifty"><p style="padding:5px 5px 5px 15px; background: #F0F0E7;"><b>Select report period and filters below.</b></p></div>
+			<p style="padding: 10px;">
+			<div id="report_chart_div"></div>
+		</div>
+	</div>
+</div>

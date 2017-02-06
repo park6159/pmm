@@ -1,0 +1,287 @@
+@font-face {
+    font-family: 'DinotWeb';
+    src: url('DINOT-Regular.eot?#iefix') format('embedded-opentype'), 
+         url('DINOT-Regular.woff') format('woff'), 
+         url('DINOT-Regular.ttf')  format('truetype');
+}
+
+
+@font-face {
+    font-family: 'DinotWeb';
+	font-weight: bold;
+    src: url('DINOT-Bold.eot?#iefix') format('embedded-opentype'), 
+         url('DINOT-Bold.woff') format('woff'), 
+         url('DINOT-Bold.ttf')  format('truetype');
+}
+
+
+body {
+  	margin: 0;
+	background-color: #FFF;	
+  	font-size: 14px;
+  	font-family: DinotWeb, sans-serif;
+  	text-align: center;
+}
+	
+.body {
+	background-color: #FFF;	
+	clear: both; 
+	margin: 0 auto;
+	width: 800px; 
+	min-width: 800px;
+}
+
+.mainContent {
+	background-color: #FFF;	
+	overflow: hidden;
+	line-height: 25px;
+	padding: 0;
+}
+
+.midcontent {
+	background-color: #FFF;
+	padding: 0;
+
+}
+
+.infowindow {
+	text-align: center;
+}
+
+.infoform {
+	text-align: left;
+	padding: 0;
+	width: 200px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.infoform_top {
+	text-align: left;
+	padding: 35px 0 0 0;
+	width: 200px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.infoform_bottom {
+	text-align: left;
+	padding: 0 0 35px 0;
+	width: 200px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.selectionform {
+	font-size: 16px;	
+	padding-bottom: 20px;
+}
+
+.submitcontent {
+	clear: both; 
+	margin: 0 auto;
+	width: 180px;
+}
+
+.imagebtn-sm {
+    background-image: url(../images/sap_submit.png);
+	color: #000;
+    border:0 none;    
+    cursor: pointer;
+	width: 180px;
+	height: 48px;
+	padding: 10px;
+	font-size: 16px !important;
+	font-weight: bold;
+	text-align: center;
+}
+
+.error-msg {
+	border:0 none;    
+	padding-top: 40px;
+	font-size: 16px;
+	text-align: center;
+}
+
+#chart {
+  padding: 0px;
+}
+		
+#clickerWrapper {
+  top: 0;
+  z-index: 1;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: 550px;
+  padding-top: 5px;
+  visibility: auto;
+}
+
+#clicker {
+  z-index: 1;
+  display: block;
+  font-family: DinotWeb, sans-serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: #363636;
+  position: relative;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 5px 0 8px 0;
+
+  /*border: 1px solid;*/
+  
+  border-color: #363636;
+  cursor: pointer;
+}
+
+		
+#buttonWrapper{
+  z-index: 1;
+  display: block;
+  display: block;
+  margin: 0 auto;
+  font-family: DinotWeb, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: #6B6B6B;
+  position: relative;
+  width: 320px;
+  text-align: center;
+  margin-top: 30px;	
+  overflow: hidden;		  
+}
+		
+#buttonWrapperInner{
+	position: relative;
+	width: 300px;
+	height: 30px;
+	margin: 0 auto;
+}
+		
+
+#disclosure-block2{
+	font-size: 12px;
+	padding-top:20px; 
+	padding-bottom:20px;
+}
+
+#disclosure-block{
+	font-size: 12px;
+	padding-left:12px; 
+	height:80px; 
+	overflow:auto;
+}
+
+		#skip{
+		  width: 90px;
+		  cursor: pointer;	
+		  float: left;	
+		  text-align: left;
+		}
+		
+		#reset{
+		  width: 110px;
+		  cursor: pointer;	
+		  float: left;			  
+		}
+
+		#link{
+		  width: 100px;
+		  cursor: pointer;	
+		  float: left;	
+		  text-align: right;
+		}
+		
+		line {
+		  stroke: #000;
+		  stroke-width: 1.px;
+		}
+
+		text {
+		  font-size: 10px;
+		}
+
+		.titles{
+		  font-size: 14px;
+		}
+
+		/*20*/
+		.explanation{
+		  font-size: 16px;
+		  color: #00b3ee !important;
+			line-height: 1.1 !important;
+		  font-weight: 300;
+		  text-align: center;
+		}
+		
+		/*42*/
+		.explanationbold{
+		  font-size: 62px;
+		  color: #00b3ee !important;
+		  font-weight: bold;
+		  text-align: center;
+		}
+		
+		path.chord {
+		  fill-opacity: .80;
+		}
+		
+		a {
+			text-decoration: none;
+			color: #6B6B6B;
+		}
+		
+/******* css of dots ****/
+    ol{
+        list-style: none;
+    	margin-left: -18px;
+        width:100%;
+    }
+    
+    ol li{
+        background: #b3b3b3;
+        border-radius: 50%;
+        display: inline-block;
+        width:14px;
+        height:14px;
+        cursor: pointer;
+    }	
+
+    ol li:hover, .ol li.active{
+    	background-color: #fdce00 !important;
+	}
+	
+	.active{
+		background-color: #fdce00 !important;
+	}
+    
+    
+/* ===========================
+   ====== Media Queries ====== 
+   =========================== */
+
+@media only screen and (min-width : 150px) and (max-width : 780px)
+{
+	.body {
+		clear: both; 
+		margin: 0 auto; 
+		width: 100%;
+		font-size: 80%;
+	}
+	
+	.mainContent {
+		overflow: hidden;
+		border-radius: 0px;
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		padding-top: 0px;
+		padding-bottom: 0px;	
+	}		
+	
+}		

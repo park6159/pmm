@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Personalization Survey</title>
+	<title><?php echo($this->qData['app_title'])?></title>
 	<meta charset="utf-8" />	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
@@ -619,54 +619,54 @@ function validateData()
 		
 	<div class="mainContent">	
 				<div class="topcontent">
-					<div class="surveytitle">Personalization Survey</div>
-					<div class="q1title">Question 1 of 4</div>	
+					<div class="surveytitle"><?php echo($this->qData['app_title'])?></div>
+					<div class="q1title"><?php echo($this->qData['app_q1'])?></div>	
 					<div class="q1content">
-						<h2>How many systems are used to capture<br> customer data?<br>&nbsp;<br>&nbsp;</h2>
+						<h2><?php echo($this->qData['q1'])?><br>&nbsp;<br>&nbsp;</h2>
 						<div class="q1slider" id="q1_slider"></div><div class="q1sliderresult" id="q1_result"></div><div class="totalsystems">TOTAL SYSTEMS</div>
 					</div>
 				</div>
 				<div class="midcontent">
-					<div class="qtitle">Question 2 of 4</div>	
-					<div class="qcontent">What is your current strategy to have a single customer database?</div>	
+					<div class="qtitle"><?php echo($this->qData['app_q2'])?></div>	
+					<div class="qcontent"><?php echo($this->qData['q2'])?></div>	
 						<table class="selectionTable">
 							<tr>
-								<td id="q2_1" class="qlabel">Already implemented a single customer database</td><td id="q2check_1" width="60">&nbsp;</td>
+								<td id="q2_1" class="qlabel"><?php echo($this->qData['q2_a1'])?></td><td id="q2check_1" width="60">&nbsp;</td>
 							</tr>						
 							<tr>
-								<td id="q2_2" class="qlabel">Currently implementing plans to create a single customer database</td><td id="q2check_2" width="60">&nbsp;</td>
+								<td id="q2_2" class="qlabel"><?php echo($this->qData['q2_a2'])?></td><td id="q2check_2" width="60">&nbsp;</td>
 							</tr>
 							<tr>
-								<td id="q2_3" class="qlabel">Plans to implement in the next 12 month</td><td id="q2check_3" width="60">&nbsp</td>
+								<td id="q2_3" class="qlabel"><?php echo($this->qData['q2_a3'])?></td><td id="q2check_3" width="60">&nbsp</td>
 							</tr>
 							<tr>
-								<td id="q2_4" class="qlabel">Don't have enough organizational support to do so</td><td id="q2check_4" width="60">&nbsp</td>
+								<td id="q2_4" class="qlabel"><?php echo($this->qData['q2_a4'])?></td><td id="q2check_4" width="60">&nbsp</td>
 							</tr>
 							<tr>
-								<td id="q2_5" class="qlabel">Have not considered moving to a single customer database</td><td id="q2check_5" width="60">&nbsp</td>						
+								<td id="q2_5" class="qlabel"><?php echo($this->qData['q2_a5'])?></td><td id="q2check_5" width="60">&nbsp</td>						
 							</tr>
 							<tr>
-								<td id="q2_6" class="qlabel">Don't know</td><td id="q2check_6" width="60">&nbsp</td>						
+								<td id="q2_6" class="qlabel"><?php echo($this->qData['q2_a6'])?></td><td id="q2check_6" width="60">&nbsp</td>						
 							</tr>												
 						</table>
 					
 				</div>	
 				<div class="midcontent">
-					<div class="qtitle">Question 3 of 4</div>	
-					<div class="qcontent">What are your plans to use the following advanced analytics?</div>
+					<div class="qtitle"><?php echo($this->qData['app_q3'])?></div>	
+					<div class="qcontent"><?php echo($this->qData['q3'])?></div>
 						<table class="gridTable">
 						<thead class="tableHead">
 						<tr>
 							<th width="138">&nbsp;</th>
-							<th>Don't Know</th>
-							<th>Not Interested</th>
-							<th>Interested, but<br> not a priority</th>
-							<th>Implementing in the next 12 mos </th>
-							<th>Implemented</th>	
+							<th><?php echo($this->qData['q3_a1'])?></th>
+							<th><?php echo($this->qData['q3_a2'])?></th>
+							<th><?php echo($this->qData['q3_a3'])?></th>
+							<th><?php echo($this->qData['q3_a4'])?></th>
+							<th><?php echo($this->qData['q3_a5'])?></th>	
 						</tr>
 						</thead>
 						<tr>
-							<td id="dashboard0" class="qlabel">Dashboard</td>
+							<td id="dashboard0" class="qlabel"><?php echo($this->qData['q3_cat1'])?></td>
 							<td id="dashboard1">&nbsp;</td>
 							<td id="dashboard2">&nbsp;</td>
 							<td id="dashboard3">&nbsp;</td>
@@ -674,7 +674,7 @@ function validateData()
 							<td id="dashboard5">&nbsp;</td>	
 						</tr>
 						<tr>
-							<td id="web0" class="qlabel">Web Analytics</td>
+							<td id="web0" class="qlabel"><?php echo($this->qData['q3_cat2'])?></td>
 							<td id="web1">&nbsp;</td>
 							<td id="web2">&nbsp;</td>
 							<td id="web3">&nbsp;</td>
@@ -682,7 +682,7 @@ function validateData()
 							<td id="web5">&nbsp;</td>	
 						</tr>
 						<tr>
-							<td id="text0" class="qlabel">Text Analytics</td>
+							<td id="text0" class="qlabel"><?php echo($this->qData['q3_cat3'])?></td>
 							<td id="text1">&nbsp;</td>
 							<td id="text2">&nbsp;</td>
 							<td id="text3">&nbsp;</td>
@@ -690,7 +690,7 @@ function validateData()
 							<td id="text5">&nbsp;</td>	
 						</tr>
 						<tr>
-							<td id="predictive0" class="qlabel">Predictive Analytics</td>
+							<td id="predictive0" class="qlabel"><?php echo($this->qData['q3_cat4'])?></td>
 							<td id="predictive1">&nbsp;</td>
 							<td id="predictive2">&nbsp;</td>
 							<td id="predictive3">&nbsp;</td>
@@ -698,7 +698,7 @@ function validateData()
 							<td id="predictive5">&nbsp;</td>	
 						</tr>		
 						<tr>
-							<td id="location0" class="qlabel">Location Analytics</td>
+							<td id="location0" class="qlabel"><?php echo($this->qData['q3_cat5'])?></td>
 							<td id="location1">&nbsp;</td>
 							<td id="location2">&nbsp;</td>
 							<td id="location3">&nbsp;</td>
@@ -708,21 +708,21 @@ function validateData()
 						</table>
 				</div>	
 				<div class="midcontent">
-					<div class="qtitle">Question 4 of 4</div>	
-					<div class="qcontent">For each of the customer interaction channels, rate your ability to understand customer intent and respond in real-time?</div>
+					<div class="qtitle"><?php echo($this->qData['app_q4'])?></div>	
+					<div class="qcontent"><?php echo($this->qData['q4'])?></div>
 						<table class="gridTable">
 						<thead class="tableHead">
 						<tr>
 							<th width="130">&nbsp;</th>
-							<th>Don't Know</th>	
-							<th>Don't have it, <br>have no plans</th>
-							<th>Don't have it, <br>but have plans</th>
-							<th>Have limited<br>capability</th>
-							<th>Full capability</th>	
+							<th><?php echo($this->qData['q4_a1'])?></th>	
+							<th><?php echo($this->qData['q4_a2'])?></th>
+							<th><?php echo($this->qData['q4_a3'])?></th>
+							<th><?php echo($this->qData['q4_a4'])?></th>
+							<th><?php echo($this->qData['q4_a5'])?></th>	
 						</tr>
 						</thead>
 						<tr>
-							<td id="email0" class="qlabel">Email</td>
+							<td id="email0" class="qlabel"><?php echo($this->qData['q4_cat1'])?></td>
 							<td id="email1">&nbsp;</td>
 							<td id="email2">&nbsp;</td>
 							<td id="email3">&nbsp;</td>
@@ -730,7 +730,7 @@ function validateData()
 							<td id="email5">&nbsp;</td>	
 						</tr>
 						<tr>
-							<td id="online0" class="qlabel">Online/Web</td>
+							<td id="online0" class="qlabel"><?php echo($this->qData['q4_cat2'])?></td>
 							<td id="online1">&nbsp;</td>
 							<td id="online2">&nbsp;</td>
 							<td id="online3">&nbsp;</td>
@@ -738,7 +738,7 @@ function validateData()
 							<td id="online5">&nbsp;</td>	
 						</tr>
 						<tr>
-							<td id="mobile0" class="qlabel">Mobile</td>
+							<td id="mobile0" class="qlabel"><?php echo($this->qData['q4_cat3'])?></td>
 							<td id="mobile1">&nbsp;</td>
 							<td id="mobile2">&nbsp;</td>
 							<td id="mobile3">&nbsp;</td>
@@ -746,7 +746,7 @@ function validateData()
 							<td id="mobile5">&nbsp;</td>	
 						</tr>
 						<tr>
-							<td id="callcenter0" class="qlabel">Call Center</td>
+							<td id="callcenter0" class="qlabel"><?php echo($this->qData['q4_cat4'])?></td>
 							<td id="callcenter1">&nbsp;</td>
 							<td id="callcenter2">&nbsp;</td>
 							<td id="callcenter3">&nbsp;</td>
@@ -754,7 +754,7 @@ function validateData()
 							<td id="callcenter5">&nbsp;</td>	
 						</tr>		
 						<tr>
-							<td id="store0" class="qlabel">In Store</td>
+							<td id="store0" class="qlabel"><?php echo($this->qData['q4_cat5'])?></td>
 							<td id="store1">&nbsp;</td>
 							<td id="store2">&nbsp;</td>
 							<td id="store3">&nbsp;</td>

@@ -420,10 +420,11 @@ button.ui-button::-moz-focus-inner {
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
-	background-color:#fdce00;
+	/*background-color:#fdce00;*/
 	padding: .4em 1em;
 	margin: -3px;
 	position: relative;
+	background:#F2EEBB url(images/popup_head.png) no-repeat 99.5% center; 
 }
 .ui-dialog .ui-dialog-title {
 	float: left;
@@ -856,7 +857,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 0px solid #fff;
-	background: #fdce00;
+	background: #fbba00;
 	font-weight: bold;
 	color: #1c94c4;
 }
